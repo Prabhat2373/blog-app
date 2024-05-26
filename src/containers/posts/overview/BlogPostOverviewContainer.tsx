@@ -1,5 +1,9 @@
+"use client";
+
 import BlogPost from "@/component/BlogPost";
-import React from "react";
+import { useLazyGetPostOverviewQuery } from "@/services/rtk/postsApi";
+import { useParams, useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
 const content = {
   type: "doc",
@@ -59,7 +63,15 @@ const content = {
 };
 
 const BlogPostOverviewContainer = () => {
-  return <BlogPost content={content} />;
+  const [getPost, { data }] = useLazyGetPostOverviewQuery();
+  const router = useRouter();
+  const params = useParams();
+  const postId = params?.id;
+
+  useEffect(() => {
+    getPost(postId);
+  }, [postId]);
+  return <>{data?.content ? <BlogPost content={data?.content} /> : null}</>;
 };
 
 export default BlogPostOverviewContainer;

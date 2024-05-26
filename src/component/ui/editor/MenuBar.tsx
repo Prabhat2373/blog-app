@@ -1,94 +1,4 @@
-// import Document from "@tiptap/extension-document";
-// import Dropcursor from "@tiptap/extension-dropcursor";
-// import Image from "@tiptap/extension-image";
-// import Paragraph from "@tiptap/extension-paragraph";
-// import Text from "@tiptap/extension-text";
-// import { EditorContent, useEditor } from "@tiptap/react";
-// import React, { useCallback } from "react";
-
-// const RichTextEditor = ({ value, onChange }) => {
-//   const editor = useEditor({
-//     extensions: [Document, Paragraph, Text, Image, Dropcursor],
-//     content: `
-//       <p>This is a basic example of implementing images. Drag to re-order.</p>
-//       <img src="https://source.unsplash.com/8xznAGy4HcY/800x400" />
-//       <img src="https://source.unsplash.com/K9QHL52rE2k/800x400" />
-//     `,
-//   });
-
-//   const uploadImage = useCallback(async (file) => {
-//     // Perform image upload to your server and retrieve the URL
-//     try {
-//       const formData = new FormData();
-//       formData.append("file", file);
-
-//       // Example: Replace 'your-upload-url' with your actual upload endpoint
-//       const response = await fetch("your-upload-url", {
-//         method: "POST",
-//         body: formData,
-//       });
-
-//       if (response.ok) {
-//         const { url } = await response.json();
-//         return url;
-//       } else {
-//         throw new Error("Failed to upload image");
-//       }
-//     } catch (error) {
-//       console.error("Image upload failed:", error);
-//       throw error;
-//     }
-//   }, []);
-
-//   const addImage = async () => {
-//     const file = window.prompt("Upload Image");
-
-//     if (file) {
-//       try {
-//         const url = await uploadImage(file);
-//         editor.chain().focus().setImage({ src: url }).run();
-//       } catch (error) {
-//         // Handle error
-//       }
-//     }
-//   };
-
-//   if (!editor) {
-//     return null;
-//   }
-//   const extractHtml = () => {
-//     // setHtmlContent(editor.getHTML());
-//     console.log("output", editor.getHTML());
-//     console.log("outputjson", editor.getJSON());
-//   };
-
-//   return (
-//     <div>
-//       <button onClick={addImage}>Upload Image</button>
-//       <button onClick={extractHtml}>Extract HTML</button>
-//       <EditorContent
-//         editor={editor}
-//         value={value}
-//         onChange={(val) => {
-//           console.log("valueee", val);
-//         }}
-//       />
-//     </div>
-//   );
-// };
-
-// export default RichTextEditor;
-
 import React, { useEffect, useRef, useState, useCallback } from "react";
-// import {
-//   IconButton,
-//   WithTooltip,
-//   Button,
-//   Menu,
-//   MenuButton,
-//   MenuList,
-//   MenuItem,
-// } from "@chakra-ui/react";
 
 import { EditorProvider, useCurrentEditor } from "@tiptap/react";
 
@@ -106,7 +16,7 @@ import Image from "@tiptap/extension-image";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import ErrorText from "./error-text";
+import ErrorText from "../error-text";
 import {
   IconAlignCenter,
   IconAlignLeft,
@@ -131,7 +41,7 @@ import {
   IconUnderline,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
-import WithTooltip from "./WithTooltip";
+import WithTooltip from "../WithTooltip";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import {
   Select,
@@ -153,9 +63,6 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-// import {} from "@tabler/icons-react";
-
-// import { DownArrowIcon } from "../../assets/components";
 
 const MenuBar = ({ value, toolbar = {} }) => {
   const { editor } = useCurrentEditor();
@@ -213,8 +120,9 @@ const MenuBar = ({ value, toolbar = {} }) => {
 
   return (
     <>
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center border-b py-2 px-2">
         <Button
+          type="button"
           value="undo"
           variant={"outline"}
           aria-label="undo"
@@ -227,6 +135,7 @@ const MenuBar = ({ value, toolbar = {} }) => {
           <IconArrowBackUp className="h-4 w-4" />
         </Button>
         <Button
+          type="button"
           value="redo"
           variant={"outline"}
           aria-label="undo"
@@ -337,6 +246,7 @@ const MenuBar = ({ value, toolbar = {} }) => {
           </SelectContent>
         </Select>
         <Button
+          type="button"
           value="bold"
           variant={"outline"}
           aria-label="Toggle bold"
@@ -349,6 +259,7 @@ const MenuBar = ({ value, toolbar = {} }) => {
           <IconBold className="h-4 w-4" />
         </Button>
         <Button
+          type="button"
           value="italic"
           variant={"outline"}
           aria-label="Toggle italic"
@@ -361,6 +272,7 @@ const MenuBar = ({ value, toolbar = {} }) => {
           <IconItalic className="h-4 w-4" />
         </Button>
         <Button
+          type="button"
           value="underline"
           variant={"outline"}
           aria-label="Toggle underline"
@@ -373,6 +285,7 @@ const MenuBar = ({ value, toolbar = {} }) => {
           <IconUnderline className="h-4 w-4" />
         </Button>
         <Button
+          type="button"
           value="highlight"
           variant={"outline"}
           aria-label="Toggle underline"
@@ -385,6 +298,7 @@ const MenuBar = ({ value, toolbar = {} }) => {
           <IconHighlight className="h-4 w-4" />
         </Button>
         <Button
+          type="button"
           variant={"outline"}
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           // disabled={!editor.chain().focus().toggleBulletList().run()}
@@ -395,6 +309,40 @@ const MenuBar = ({ value, toolbar = {} }) => {
           <IconList className="h-4 w-4" />
         </Button>
         <Button
+          type="button"
+          variant={"outline"}
+          onClick={() => editor.commands.setTextAlign("left")}
+          // disabled={!editor.chain().focus().toggleBulletList().run()}
+          className={classNames({
+            "bg-gray-200": editor.isActive("left"),
+          })}
+        >
+          <IconAlignLeft className="h-4 w-4" />
+        </Button>
+        <Button
+          type="button"
+          variant={"outline"}
+          onClick={() => editor.commands.setTextAlign("center")}
+          // disabled={!editor.chain().focus().toggleBulletList().run()}
+          className={classNames({
+            "bg-gray-200": editor.isActive("center"),
+          })}
+        >
+          <IconAlignCenter className="h-4 w-4" />
+        </Button>
+        <Button
+          type="button"
+          variant={"outline"}
+          onClick={() => editor.commands.setTextAlign("right")}
+          // disabled={!editor.chain().focus().toggleBulletList().run()}
+          className={classNames({
+            "bg-gray-200": editor.isActive("right"),
+          })}
+        >
+          <IconAlignRight className="h-4 w-4" />
+        </Button>
+        <Button
+          type="button"
           variant={"outline"}
           onClick={() => editor.chain().focus().setHorizontalRule().run()}
 
@@ -405,6 +353,7 @@ const MenuBar = ({ value, toolbar = {} }) => {
           <IconDivide className="h-4 w-4" />
         </Button>
         <Button
+          type="button"
           variant={"outline"}
           onClick={() => editor.chain().focus().setHardBreak().run()}
 
@@ -415,18 +364,19 @@ const MenuBar = ({ value, toolbar = {} }) => {
           <IconArrowBarDown className="h-4 w-4" />
         </Button>
         {/* <Button
-          variant={"outline"}
-          value={editor.getAttributes("textStyle").color}
-          onInput={(event) =>
-            editor.chain().focus().setColor(event.target.value).run()
-          }
-
-          // className={classNames({
-          //   "bg-gray-200": editor.isActive("divide"),
-          // })}
-        >
-          <IconPalette className="h-4 w-4" />
-        </Button> */}
+type="button"
+            variant={"outline"}
+            value={editor.getAttributes("textStyle").color}
+            onInput={(event) =>
+              editor.chain().focus().setColor(event.target.value).run()
+            }
+  
+            // className={classNames({
+            //   "bg-gray-200": editor.isActive("divide"),
+            // })}
+          >
+            <IconPalette className="h-4 w-4" />
+          </Button> */}
         {color && (
           <input
             type="color"
@@ -440,7 +390,7 @@ const MenuBar = ({ value, toolbar = {} }) => {
         )}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline">
+            <Button type="button" variant="outline">
               <IconTable />
             </Button>
           </DropdownMenuTrigger>
@@ -505,6 +455,7 @@ const MenuBar = ({ value, toolbar = {} }) => {
         {image && (
           <WithTooltip description="Insert Image">
             <Button
+              type="button"
               variant={"outline"}
               // icon={<ImageIcon />}
               ref={inputFileRef}
@@ -522,6 +473,7 @@ const MenuBar = ({ value, toolbar = {} }) => {
           accept="image/jpeg,image/gif,image/png,image/x-eps"
         />
         <Button
+          type="button"
           variant={"outline"}
           onClick={() => console.log("output", editor.getJSON())}
         >
@@ -532,111 +484,4 @@ const MenuBar = ({ value, toolbar = {} }) => {
   );
 };
 
-const RichText = (props) => {
-  const {
-    name,
-    label,
-    error,
-    disabled,
-    required,
-    ellipsis,
-    onChange = () => {},
-    value,
-    toolbar = {},
-    tableResize = false,
-  } = props;
-
-  const extensions = [
-    StarterKit,
-    TextAlign.configure({
-      types: ["heading", "paragraph"],
-    }),
-    Highlight,
-    Text,
-    TextStyle,
-    Color,
-    Document,
-    Table.configure({
-      resizable: tableResize,
-    }),
-    Image.configure({
-      allowBase64: true,
-      inline: true,
-    }),
-    TableCell,
-    TableHeader,
-    TableRow,
-  ];
-  const contentRef = useRef(value);
-  const [border, setBorder] = useState("");
-  const handleInput = (style) => {
-    if (error && !disabled) {
-      setBorder("error");
-    } else {
-      setBorder(style);
-    }
-  };
-
-  useEffect(() => {
-    if (disabled) {
-      setBorder("");
-    }
-  }, []);
-
-  useEffect(() => {
-    handleInput("");
-  }, [error]);
-
-  return (
-    <div className="input-rich-container rich-editor w-10">
-      <fieldset
-        className={border}
-        onFocusCapture={() => handleInput("active")}
-        onBlur={() => handleInput("")}
-      >
-        {label && (
-          <legend>
-            {/* <FormLabel
-              disabled={disabled}
-              label={label}
-              required={required}
-              ellipsis={ellipsis}
-            /> */}
-            <label>{label}</label>
-          </legend>
-        )}
-
-        <EditorProvider
-          slotBefore={<MenuBar value={value} toolbar={toolbar} />}
-          extensions={extensions}
-          content={contentRef.target}
-          onUpdate={({ editor }) => {
-            onChange(editor?.getHTML());
-          }}
-          name={name}
-        />
-      </fieldset>
-      {!disabled && error && <ErrorText error={error} />}
-    </div>
-  );
-};
-
-RichText.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  error: PropTypes.string,
-  disabled: PropTypes.bool,
-  required: PropTypes.bool,
-  ellipsis: PropTypes.bool,
-  value: PropTypes.string,
-};
-
-RichText.defaultProps = {
-  error: "",
-  disabled: false,
-  required: false,
-  ellipsis: false,
-  value: "",
-};
-
-export default RichText;
+export default MenuBar;

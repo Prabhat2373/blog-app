@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import RichTextEditor from "@/component/ui/RichTextEditor";
+import RichTextEditor from "@/component/ui/editor/RichTextEditor";
 import { Descendant } from "slate";
 // import RichTextEditor from "./RichTextEditor";
 

@@ -12,6 +12,11 @@ export const postsApi = createApi({
         body,
       }),
     }),
+    getAllPosts: builder.query({
+      query: () => ({
+        url: `/blogs`,
+      }),
+    }),
     getPostOverview: builder.query({
       query: (id) => ({
         url: `/blogs/${id}`,
@@ -44,4 +49,6 @@ export const {
   useLazyGetPostOverviewQuery,
   useLikePostMutation,
   useSharePostMutation,
+  useGetAllPostsQuery,
+  useLazyGetAllPostsQuery,
 } = postsApi;
