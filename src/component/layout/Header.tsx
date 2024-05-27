@@ -5,13 +5,16 @@ import Link from "next/link";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import ProfileDropdownMenu from "../menus/ProfileDropdownMenu";
+import { IconBell, IconBellRinging } from "@tabler/icons-react";
+import { Toggle } from "@/components/ui/toggle";
+import { Bold } from "lucide-react";
 
 const Header = () => {
   const [state, setState] = useState(false);
 
   // Replace javascript:void(0) paths with your paths
   const navigation = [
-    { title: "Features", path: "javascript:void(0)" },
+    { title: "Explore", path: "/explore" },
     { title: "Integrations", path: "javascript:void(0)" },
     { title: "Customers", path: "javascript:void(0)" },
     { title: "Pricing", path: "javascript:void(0)" },
@@ -24,14 +27,14 @@ const Header = () => {
     <nav className="bg-white border-b w-full md:static md:text-sm md:border-none">
       <div className="items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8">
         <div className="flex items-center justify-between py-3 md:py-5 md:block">
-          <a href="javascript:void(0)">
+          <Link href="/">
             <img
               src="https://www.floatui.com/logo.svg"
               width={120}
               height={50}
               alt="Float UI logo"
             />
-          </a>
+          </Link>
           <div className="md:hidden">
             <button
               className="text-gray-500 hover:text-gray-800"
@@ -84,6 +87,12 @@ const Header = () => {
                 </li>
               );
             })}
+            <Toggle aria-label="Toggle bold">
+              <Bold className="h-4 w-4" />
+            </Toggle>
+            <button>
+              <IconBell />
+            </button>
             <span className="hidden w-px h-6 bg-gray-300 md:block"></span>
             {/* {typeof isLoggedIn == "boolean" ? (
               <div className="space-y-3 items-center gap-x-6 md:flex md:space-y-0">
@@ -92,14 +101,18 @@ const Header = () => {
                     <ProfileDropdownMenu />
                   </div>
                 ) : ( */}
-            <li>
+            {/* <li>
               <Link
                 href="/auth/login"
                 className="block py-3 text-center text-gray-700 hover:text-indigo-600 border rounded-lg md:border-none"
               >
                 Log in
               </Link>
-            </li>
+            </li> */}
+
+            <div>
+              <ProfileDropdownMenu />
+            </div>
             {/* )}
               </div>
             ) : null} */}

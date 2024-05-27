@@ -120,7 +120,7 @@ const MenuBar = ({ value, toolbar = {} }) => {
 
   return (
     <>
-      <div className="flex gap-2 items-center border-b py-2 px-2">
+      <div className="flex gap-2 items-center border-b py-2 px-2 flex-wrap">
         <Button
           type="button"
           value="undo"

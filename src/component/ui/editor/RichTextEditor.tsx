@@ -98,6 +98,12 @@ const RichText = (props) => {
         <EditorProvider
           slotBefore={<MenuBar value={value} toolbar={toolbar} />}
           extensions={extensions}
+          editorProps={{
+            attributes: {
+              class:
+                "prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none min-h-48",
+            },
+          }}
           content={contentRef.target}
           onUpdate={({ editor }) => {
             onChange(editor?.getJSON());

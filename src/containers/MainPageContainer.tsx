@@ -76,9 +76,6 @@ const MainPageContainer = () => {
   }, []);
   return (
     <>
-      {/* <BlogPostForm /> */}
-      {/* <PostListingCard />
-      {data?.content ? <BlogPost content={data?.content} /> : null} */}
       <MainPostsContainer />
     </>
   );
