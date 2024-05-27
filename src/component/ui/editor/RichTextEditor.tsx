@@ -41,7 +41,7 @@ const RichText = (props) => {
       types: ["heading", "paragraph"],
     }),
     Highlight,
-    Text,
+    // Text,
     TextStyle,
     Color,
     Document,

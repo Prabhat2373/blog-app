@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "@styles/globals.css";
 import StoreProvider from "@/hoc/app/StoreProvider";
 import AppProvider from "@/hoc/app/AppProvider";
 import { useEffect } from "react";
@@ -22,11 +22,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <StoreProvider>
-        <body className={inter.className}>
-          <AppProvider>{children}</AppProvider>
-        </body>
-      </StoreProvider>
+      <body className={inter.className}>
+        <StoreProvider>
+          <AppProvider>
+            <AppLayout>{children}</AppLayout>
+          </AppProvider>
+        </StoreProvider>
+      </body>
     </html>
   );
 }

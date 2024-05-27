@@ -1,14 +1,12 @@
 "use client";
-import React, { useMemo, useState } from "react";
-import axios from "axios";
-import RichTextEditor from "@/component/ui/editor/RichTextEditor";
-import { Descendant } from "slate";
-import { Form, Formik } from "formik";
 import InputField from "@/component/inputs/InputField";
+import RichTextEditor from "@/component/ui/editor/RichTextEditor";
 import { Button } from "@/components/ui/button";
-import { useCreatePostMutation } from "@/services/rtk/postsApi";
 import { Label } from "@/components/ui/label";
-import FileDnD from "@/component/form/FileDnd";
+import { useCreatePostMutation } from "@/services/rtk/postsApi";
+import { Form, Formik } from "formik";
+import { useMemo, useState } from "react";
+import { Descendant } from "slate";
 // import RichTextEditor from "./RichTextEditor";
 
 // const dummy = {

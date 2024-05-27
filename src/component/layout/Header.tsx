@@ -19,7 +19,6 @@ const Header = () => {
 
   const { isLoggedIn, user } = useSelector((state: RootState) => state.user);
   console.log("isLoggedIn", isLoggedIn, user);
-  
 
   return (
     <nav className="bg-white border-b w-full md:static md:text-sm md:border-none">
@@ -86,24 +85,24 @@ const Header = () => {
               );
             })}
             <span className="hidden w-px h-6 bg-gray-300 md:block"></span>
-            {typeof isLoggedIn == "boolean" ? (
+            {/* {typeof isLoggedIn == "boolean" ? (
               <div className="space-y-3 items-center gap-x-6 md:flex md:space-y-0">
                 {isLoggedIn && typeof isLoggedIn == "boolean" ? (
                   <div>
                     <ProfileDropdownMenu />
                   </div>
-                ) : (
-                  <li>
-                    <Link
-                      href="/auth/login"
-                      className="block py-3 text-center text-gray-700 hover:text-indigo-600 border rounded-lg md:border-none"
-                    >
-                      Log in
-                    </Link>
-                  </li>
-                )}
+                ) : ( */}
+            <li>
+              <Link
+                href="/auth/login"
+                className="block py-3 text-center text-gray-700 hover:text-indigo-600 border rounded-lg md:border-none"
+              >
+                Log in
+              </Link>
+            </li>
+            {/* )}
               </div>
-            ) : null}
+            ) : null} */}
           </ul>
         </div>
       </div>

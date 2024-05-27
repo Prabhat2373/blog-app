@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import Header from "@/component/layout/Header";
 import AuthLayout from "@/layouts/AuthLayout";
+import "@styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,13 +23,13 @@ export default function CoreAuthLayout({
 }>) {
   return (
     <html lang="en">
-      <StoreProvider>
-        <body className={inter.className}>
+      <body className={inter.className}>
+        <StoreProvider>
           <AppProvider>
             <AuthLayout>{children}</AuthLayout>
           </AppProvider>
-        </body>
-      </StoreProvider>
+        </StoreProvider>
+      </body>
     </html>
   );
 }
