@@ -6,6 +6,7 @@ import { useAppSelector } from "@/hooks/useRtkQuery";
 import { RootState } from "@/services/store";
 import { useGetPokemonByNameQuery } from "@/services/rtk/testApi";
 import { useLazyGetPostOverviewQuery } from "@/services/rtk/postsApi";
+import PostListingCard from "@/component/cards/posts/PostListingCard";
 // export const content = {
 //   type: "doc",
 //   content: [
@@ -74,7 +75,8 @@ const MainPageContainer = () => {
   }, []);
   return (
     <>
-      <BlogPostForm />
+      {/* <BlogPostForm /> */}
+      <PostListingCard />
       {data?.content ? <BlogPost content={data?.content} /> : null}
     </>
   );
