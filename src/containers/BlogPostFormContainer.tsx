@@ -1,3 +1,4 @@
+"use client";
 import React, { useMemo, useState } from "react";
 import axios from "axios";
 import RichTextEditor from "@/component/ui/editor/RichTextEditor";
@@ -7,6 +8,7 @@ import InputField from "@/component/inputs/InputField";
 import { Button } from "@/components/ui/button";
 import { useCreatePostMutation } from "@/services/rtk/postsApi";
 import { Label } from "@/components/ui/label";
+import FileDnD from "@/component/form/FileDnd";
 // import RichTextEditor from "./RichTextEditor";
 
 // const dummy = {
@@ -66,9 +68,10 @@ import { Label } from "@/components/ui/label";
 //   ],
 // };
 
-const BlogPostForm = () => {
+const CreateBlogPostFormContainer = () => {
   const [publishPost, { isLoading }] = useCreatePostMutation();
   const [title, setTitle] = useState("");
+  const [files, setFiles] = useState([]);
   const [content, setContent] = useState<Descendant[]>([{}]);
 
   console.log("content", content);
@@ -79,6 +82,7 @@ const BlogPostForm = () => {
       ...data,
       content,
     };
+    
     const response = await publishPost(payload);
     console.log("Blog post created:", response.data);
   };
@@ -89,7 +93,7 @@ const BlogPostForm = () => {
       tags: "",
     };
   }, []);
-
+  console.log("files", files);
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       <Form className="mx-32 my-20 flex flex-col gap-4">
@@ -105,6 +109,14 @@ const BlogPostForm = () => {
           <RichTextEditor value={content} onChange={setContent} />
         </div>
         <div>
+          <InputField
+            label="Tags"
+            name="tags"
+            placeholder="Use Comma (,) saperated value "
+          />
+        </div>
+        <FileDnD setFiles={setFiles} files={files} />
+        <div>
           <Button isLoading={isLoading}>Publish</Button>
         </div>
       </Form>
@@ -112,4 +124,4 @@ const BlogPostForm = () => {
   );
 };
 
-export default BlogPostForm;
+export default CreateBlogPostFormContainer;
