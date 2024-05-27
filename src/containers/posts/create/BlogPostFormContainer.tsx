@@ -71,19 +71,28 @@ import FileDnD from "@/component/form/FileDnd";
 const CreateBlogPostFormContainer = () => {
   const [publishPost, { isLoading }] = useCreatePostMutation();
   const [title, setTitle] = useState("");
-  const [files, setFiles] = useState([]);
+  // const [files, setFiles] = useState([]);
+  const [thumbnail, setThumbnail] = useState(null);
   const [content, setContent] = useState<Descendant[]>([{}]);
 
   console.log("content", content);
-  const [tags, setTags] = useState("");
 
   const handleSubmit = async (data) => {
     const payload = {
       ...data,
       content,
     };
-    
-    const response = await publishPost(payload);
+    const formdata = new FormData();
+    Object.keys(payload).forEach((key) => {
+      if (key !== "thumbnail" && key !== "content") {
+        formdata.append(key, payload[key]);
+      }
+    });
+
+    formdata.append("content", JSON.stringify(payload.content));
+    // formdata.append("file", thumbnail);
+
+    const response = await publishPost(formdata);
     console.log("Blog post created:", response.data);
   };
   const initialValues = useMemo(() => {
@@ -93,7 +102,7 @@ const CreateBlogPostFormContainer = () => {
       tags: "",
     };
   }, []);
-  console.log("files", files);
+
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       <Form className="mx-32 my-20 flex flex-col gap-4">
@@ -115,7 +124,7 @@ const CreateBlogPostFormContainer = () => {
             placeholder="Use Comma (,) saperated value "
           />
         </div>
-        <FileDnD setFiles={setFiles} files={files} />
+
         <div>
           <Button isLoading={isLoading}>Publish</Button>
         </div>

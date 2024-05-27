@@ -23,8 +23,8 @@ const LoginContainer = () => {
   const [login, { isLoading, data }] = useLoginMutation();
   const initialValues = useMemo(() => {
     return {
-      email: "",
-      password: "",
+      email: "prabhattambe@gmail.com",
+      password: "1234567890",
     };
   }, []);
 

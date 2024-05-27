@@ -1,12 +1,13 @@
 "use client";
 import React, { useEffect } from "react";
-import BlogPostForm from "./BlogPostFormContainer";
+import BlogPostForm from "./posts/create/BlogPostFormContainer";
 import BlogPost from "@/component/BlogPost";
 import { useAppSelector } from "@/hooks/useRtkQuery";
 import { RootState } from "@/services/store";
 import { useGetPokemonByNameQuery } from "@/services/rtk/testApi";
 import { useLazyGetPostOverviewQuery } from "@/services/rtk/postsApi";
 import PostListingCard from "@/component/cards/posts/PostListingCard";
+import MainPostsContainer from "./posts/index/MainPostsContainer";
 // export const content = {
 //   type: "doc",
 //   content: [
@@ -76,8 +77,9 @@ const MainPageContainer = () => {
   return (
     <>
       {/* <BlogPostForm /> */}
-      <PostListingCard />
-      {data?.content ? <BlogPost content={data?.content} /> : null}
+      {/* <PostListingCard />
+      {data?.content ? <BlogPost content={data?.content} /> : null} */}
+      <MainPostsContainer />
     </>
   );
 };
