@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import ProfileDropdownMenu from "../menus/ProfileDropdownMenu";
 import { IconBell, IconBellRinging } from "@tabler/icons-react";
 import { Toggle } from "@/components/ui/toggle";
-import { Bold } from "lucide-react";
+import { Bold, PlusIcon } from "lucide-react";
 
 const Header = () => {
   const [state, setState] = useState(false);
@@ -87,12 +87,13 @@ const Header = () => {
                 </li>
               );
             })}
-            <Toggle aria-label="Toggle bold">
-              <Bold className="h-4 w-4" />
-            </Toggle>
+
             <button>
               <IconBell />
             </button>
+            <Link href={"/posts/create"}>
+              <PlusIcon />
+            </Link>
             <span className="hidden w-px h-6 bg-gray-300 md:block"></span>
             {/* {typeof isLoggedIn == "boolean" ? (
               <div className="space-y-3 items-center gap-x-6 md:flex md:space-y-0">

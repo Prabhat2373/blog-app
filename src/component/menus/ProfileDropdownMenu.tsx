@@ -31,8 +31,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useDispatch } from "react-redux";
+import { LogoutUser } from "@/services/slices/userSlice";
+import { useRouter } from "next/navigation";
 
 const ProfileDropdownMenu = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(LogoutUser());
+    router.push("/auth/login");
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -115,7 +124,7 @@ const ProfileDropdownMenu = () => {
           <span>API</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>
           <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
