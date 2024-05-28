@@ -8,6 +8,7 @@ import ProfileDropdownMenu from "../menus/ProfileDropdownMenu";
 import { IconBell, IconBellRinging } from "@tabler/icons-react";
 import { Toggle } from "@/components/ui/toggle";
 import { Bold, PlusIcon } from "lucide-react";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 const Header = () => {
   const [state, setState] = useState(false);
@@ -87,6 +88,7 @@ const Header = () => {
                 </li>
               );
             })}
+            <ThemeToggle />
 
             <button>
               <IconBell />

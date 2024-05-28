@@ -32,6 +32,7 @@ import {
   IconArrowMoveDown,
   IconArrowNarrowDown,
   IconBold,
+  IconCode,
   IconDivide,
   IconDownload,
   IconHighlight,
@@ -71,10 +72,17 @@ import {
 
 const MenuBar = ({ value, toolbar = {} }) => {
   const { editor } = useCurrentEditor();
+  const colorInputRef = useRef<HTMLInputElement>(null);
+
   const { image = true, table = true, color = true } = toolbar;
   const inputRef = useRef(null);
   const inputFileRef = useRef(null);
 
+  const handleColorClick = () => {
+    if (colorInputRef.current) {
+      colorInputRef.current.click();
+    }
+  };
   useEffect(() => {
     if (value && editor && !editor.focused) {
       // Save cursor position
@@ -159,6 +167,18 @@ const MenuBar = ({ value, toolbar = {} }) => {
           >
             Strike
           </button>
+          <Button
+            type="button"
+            variant={"outline"}
+            onClick={() => editor.chain().focus().toggleCode().run()}
+            disabled={editor.isActive("code")}
+            // disabled={!editor.chain().focus().toggleBulletList().run()}
+            className={classNames({
+              "bg-gray-200": editor.isActive("code"),
+            })}
+          >
+            <IconCode className="h-4 w-4" />
+          </Button>
           <button
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 1 }).run()
@@ -435,6 +455,18 @@ const MenuBar = ({ value, toolbar = {} }) => {
         <Button
           type="button"
           variant={"outline"}
+          onClick={() => editor.chain().focus().toggleCode().run()}
+          disabled={editor.isActive("code")}
+          // disabled={!editor.chain().focus().toggleBulletList().run()}
+          className={classNames({
+            "bg-gray-200": editor.isActive("code"),
+          })}
+        >
+          <IconCode className="h-4 w-4" />
+        </Button>
+        <Button
+          type="button"
+          variant={"outline"}
           onClick={() => editor.chain().focus().setHorizontalRule().run()}
 
           // className={classNames({
@@ -454,31 +486,31 @@ const MenuBar = ({ value, toolbar = {} }) => {
         >
           <IconArrowBarDown className="h-4 w-4" />
         </Button>
-        {/* <Button
-type="button"
-            variant={"outline"}
-            value={editor.getAttributes("textStyle").color}
-            onInput={(event) =>
-              editor.chain().focus().setColor(event.target.value).run()
-            }
-  
-            // className={classNames({
-            //   "bg-gray-200": editor.isActive("divide"),
-            // })}
-          >
-            <IconPalette className="h-4 w-4" />
-          </Button> */}
+        <Button
+          type="button"
+          variant={"outline"}
+          onClick={handleColorClick}
+
+          // className={classNames({
+          //   "bg-gray-200": editor.isActive("divide"),
+          // })}
+        >
+          <IconPalette className="h-4 w-4" />
+        </Button>
         {color && (
           <input
+            // hidden
+            className="opacity-0 w-0 "
+            ref={colorInputRef}
             type="color"
             onInput={(event) =>
               editor.chain().focus().setColor(event.target.value).run()
             }
             value={editor.getAttributes("textStyle").color}
             data-testid="setColor"
-            style={{ width: "21px", height: "21px" }}
           />
         )}
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button type="button" variant="outline">
@@ -564,13 +596,13 @@ type="button"
           hidden
           accept="image/jpeg,image/gif,image/png,image/x-eps"
         />
-        <Button
+        {/* <Button
           type="button"
           variant={"outline"}
           onClick={() => console.log("output", editor.getJSON())}
         >
           <IconDownload />
-        </Button>
+        </Button> */}
       </div>
     </>
   );

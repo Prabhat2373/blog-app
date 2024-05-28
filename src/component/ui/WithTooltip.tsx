@@ -9,7 +9,7 @@ import React from "react";
 
 const WithTooltip = ({ children, description }) => {
   return (
-    <TooltipProvider>
+    <TooltipProvider delayDuration={10}>
       <Tooltip>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent>{description}</TooltipContent>

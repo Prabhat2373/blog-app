@@ -40,6 +40,18 @@ export const postsApi = createApi({
         method: "POST",
       }),
     }),
+    saveDrafts: builder.mutation({
+      query: (body) => ({
+        url: `/blogs/drafts`,
+        method: "POST",
+        body,
+      }),
+    }),
+    getSavedDrafts: builder.query({
+      query: () => ({
+        url: `/blogs/user-drafts`,
+      }),
+    }),
   }),
 });
 
@@ -51,4 +63,7 @@ export const {
   useSharePostMutation,
   useGetAllPostsQuery,
   useLazyGetAllPostsQuery,
+  useSaveDraftsMutation,
+  useLazyGetSavedDraftsQuery,
+  useGetSavedDraftsQuery,
 } = postsApi;

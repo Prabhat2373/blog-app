@@ -16,12 +16,10 @@ import StarterKit from "@tiptap/starter-kit";
 import PropTypes from "prop-types";
 import Placeholder from "@tiptap/extension-placeholder";
 import ImageResize from "tiptap-extension-resize-image";
+import Code from "@tiptap/extension-code";
+
 import ErrorText from "../error-text";
 import MenuBar from "./MenuBar";
-
-// import {} from "@tabler/icons-react";
-
-// import { DownArrowIcon } from "../../assets/components";
 
 const RichText = (props) => {
   const {
@@ -42,6 +40,11 @@ const RichText = (props) => {
   });
 
   const extensions = [
+    Code.configure({
+      HTMLAttributes: {
+        class: "my-custom-class",
+      },
+    }),
     ImageResize,
     StarterKit.configure({
       document: false,
@@ -115,8 +118,6 @@ const RichText = (props) => {
             <label>{label}</label>
           </legend>
         )}
-
-        
 
         <EditorProvider
           autofocus

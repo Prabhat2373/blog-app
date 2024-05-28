@@ -4,6 +4,7 @@ import Tabs, {
   TabLinks,
   TabPane,
 } from "@/component/ui/Tabs";
+import ProfileDraftsContainer from "./posts/ProfileDraftsContainer";
 
 const ProfileTabContainer = () => {
   return (
@@ -15,7 +16,9 @@ const ProfileTabContainer = () => {
         </TabLinks>
         <TabContent>
           <TabPane id="posts">All Posts</TabPane>
-          <TabPane id="drafts">drafts</TabPane>
+          <TabPane id="drafts">
+            <ProfileDraftsContainer />
+          </TabPane>
         </TabContent>
       </Tabs>
     </div>
