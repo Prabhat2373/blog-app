@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 
-import { EditorProvider, useCurrentEditor } from "@tiptap/react";
+import {
+  BubbleMenu,
+  EditorProvider,
+  FloatingMenu,
+  useCurrentEditor,
+} from "@tiptap/react";
 
 import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
@@ -96,30 +101,116 @@ const MenuBar = ({ value, toolbar = {} }) => {
     return blob;
   };
 
-  const addImage = useCallback(
-    (data) => {
-      if (data) {
-        const file = data[0];
-        const url = fileBlob(file);
-        const reader = new FileReader();
-        reader.readAsDataURL(url);
-        reader.onloadend = function render() {
-          const base64data = reader.result;
-          if (base64data) {
-            editor.chain().focus().setImage({ src: base64data }).run();
-          }
-        };
-      }
-    },
-    [editor]
-  );
+  // const addImage = useCallback(
+  //   (data) => {
+  //     if (data) {
+  //       const file = data[0];
+  //       const url = fileBlob(file);
+  //       const reader = new FileReader();
+  //       reader.readAsDataURL(url);
+  //       reader.onloadend = function render() {
+  //         const base64data = reader.result;
+  //         if (base64data) {
+  //           editor.chain().focus().setImage({ src: base64data }).run();
+  //         }
+  //       };
+  //     }
+  //   },
+  //   [editor]
+  // );
+  const addImage = useCallback(() => {
+    const url = window.prompt("URL");
+
+    if (url) {
+      editor.chain().focus().setImage({ src: url }).run();
+    }
+  }, [editor]);
 
   if (!editor) {
     return null;
   }
+  useEffect(() => {
+    editor.chain().focus().toggleHeading({ level: 1 }).run();
+  }, []);
 
   return (
     <>
+      {editor && (
+        <BubbleMenu
+          className="bubble-menu"
+          tippyOptions={{ duration: 100 }}
+          editor={editor}
+        >
+          <button
+            onClick={() => editor.chain().focus().toggleBold().run()}
+            className={editor.isActive("bold") ? "is-active" : ""}
+          >
+            Bold
+          </button>
+          <button
+            onClick={() => editor.chain().focus().toggleItalic().run()}
+            className={editor.isActive("italic") ? "is-active" : ""}
+          >
+            Italic
+          </button>
+          <button
+            onClick={() => editor.chain().focus().toggleStrike().run()}
+            className={editor.isActive("strike") ? "is-active" : ""}
+          >
+            Strike
+          </button>
+          <button
+            onClick={() =>
+              editor.chain().focus().toggleHeading({ level: 1 }).run()
+            }
+            className={editor.isActive("strike") ? "is-active" : ""}
+          >
+            H1
+          </button>
+          <button
+            onClick={() => editor.chain().focus().toggleHighlight().run()}
+            disabled={!editor.can().chain().focus().toggleStrike().run()}
+            className={editor.isActive("strike") ? "is-active" : ""}
+          >
+            Highlight
+          </button>
+        </BubbleMenu>
+      )}
+
+      {/* {editor && (
+        <FloatingMenu
+          className="floating-menu"
+          tippyOptions={{ duration: 100 }}
+          editor={editor}
+        >
+          <button
+            onClick={() =>
+              editor.chain().focus().toggleHeading({ level: 1 }).run()
+            }
+            className={
+              editor.isActive("heading", { level: 1 }) ? "is-active" : ""
+            }
+          >
+            H1
+          </button>
+          <button
+            onClick={() =>
+              editor.chain().focus().toggleHeading({ level: 2 }).run()
+            }
+            className={
+              editor.isActive("heading", { level: 2 }) ? "is-active" : ""
+            }
+          >
+            H2
+          </button>
+          <button
+            onClick={() => editor.chain().focus().toggleBulletList().run()}
+            className={editor.isActive("bulletList") ? "is-active" : ""}
+          >
+            Bullet List
+          </button>
+        </FloatingMenu>
+      )} */}
       <div className="flex gap-2 items-center border-b py-2 px-2 flex-wrap">
         <Button
           type="button"
@@ -458,8 +549,9 @@ type="button"
               type="button"
               variant={"outline"}
               // icon={<ImageIcon />}
-              ref={inputFileRef}
-              onClick={handleClick}
+              // ref={inputFileRef}
+              // onClick={handleClick}
+              onClick={addImage}
             >
               <IconImageInPicture />
             </Button>

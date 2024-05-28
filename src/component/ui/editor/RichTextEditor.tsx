@@ -14,9 +14,11 @@ import TextAlign from "@tiptap/extension-text-align";
 import TextStyle from "@tiptap/extension-text-style";
 import StarterKit from "@tiptap/starter-kit";
 import PropTypes from "prop-types";
-
+import Placeholder from "@tiptap/extension-placeholder";
+import ImageResize from "tiptap-extension-resize-image";
 import ErrorText from "../error-text";
 import MenuBar from "./MenuBar";
+
 // import {} from "@tabler/icons-react";
 
 // import { DownArrowIcon } from "../../assets/components";
@@ -35,8 +37,16 @@ const RichText = (props) => {
     tableResize = false,
   } = props;
 
+  const CustomDocument = Document.extend({
+    content: "heading block*",
+  });
+
   const extensions = [
-    StarterKit,
+    ImageResize,
+    StarterKit.configure({
+      document: false,
+    }),
+    CustomDocument,
     TextAlign.configure({
       types: ["heading", "paragraph"],
     }),
@@ -55,8 +65,19 @@ const RichText = (props) => {
     TableCell,
     TableHeader,
     TableRow,
+    Placeholder.configure({
+      placeholder: ({ node }) => {
+        console.log("node", node);
+        if (node.type.name === "heading") {
+          return "What’s the title?";
+        }
+
+        return "Can you add some further context?";
+      },
+    }),
   ];
   const contentRef = useRef(value);
+
   const [border, setBorder] = useState("");
   const handleInput = (style) => {
     if (error && !disabled) {
@@ -95,7 +116,10 @@ const RichText = (props) => {
           </legend>
         )}
 
+        
+
         <EditorProvider
+          autofocus
           slotBefore={<MenuBar value={value} toolbar={toolbar} />}
           extensions={extensions}
           editorProps={{

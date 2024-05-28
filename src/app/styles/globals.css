@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "./modules/tiptap.module.css";
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -93,4 +95,16 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.tiptap .is-empty::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #ced4da;
+  pointer-events: none;
+  height: 0;
+}
+
+h1 {
+  font-size: 22px;
 }
