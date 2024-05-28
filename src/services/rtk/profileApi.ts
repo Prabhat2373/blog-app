@@ -19,7 +19,17 @@ export const profileApi = createApi({
         body,
       }),
     }),
+    getProfile: builder.query({
+      query: () => ({
+        url: "/profile",
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = profileApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useLazyGetProfileQuery,
+  useGetProfileQuery,
+} = profileApi;
