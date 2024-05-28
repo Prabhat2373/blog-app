@@ -92,19 +92,20 @@ const CreateBlogPostFormContainer = () => {
     };
     const formdata = new FormData();
     Object.keys(payload).forEach((key) => {
-      if (key !== "thumbnail" && key !== "content") {
+      if (key !== "thumbnail" && key !== "content" && key !== "tags") {
         formdata.append(key, payload[key]);
       }
     });
 
     formdata.append("content", JSON.stringify(payload.content));
-    // formdata.append("file", thumbnail);
+    formdata.append("tags", JSON.stringify(payload.tags));
+    formdata.append("file", thumbnail);
 
     const response = await publishPost(formdata);
     console.log("Blog post created:", response.data);
     if (isSuccess(response)) {
       toast.success(response?.data?.message);
-      router.push(`/posts/${response?.data?.data?._id}`);
+      // router.push(`/posts/${response?.data?.data?._id}`);
     }
   };
   const initialValues = useMemo(() => {
@@ -149,7 +150,7 @@ const CreateBlogPostFormContainer = () => {
           /> */}
                 <Label>Tags</Label>
                 <ReactSelect
-                  options={blogTopics}
+                  options={blogCategories}
                   isMulti
                   onChange={(option) => {
                     setFieldValue(
@@ -159,7 +160,12 @@ const CreateBlogPostFormContainer = () => {
                   }}
                 />
               </div>
-
+              <div>
+                <input
+                  type="file"
+                  onChange={(e) => setThumbnail(e?.target?.files?.[0])}
+                />
+              </div>
               <div className="flex gap-3 items-center justify-end">
                 <Button variant={"outline"}>
                   <IconDeviceFloppy /> Save as Draft

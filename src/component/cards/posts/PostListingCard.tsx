@@ -6,6 +6,11 @@ import React from "react";
 import moment from "moment";
 
 const PostListingCard = ({ data }) => {
+  const colors = ["blue", "orange", "purple", "green", "red", "yellow"];
+
+  const getRandomColor = () => {
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
   return (
     <div className=" flex flex-col justify-center gap-5">
       <img
@@ -35,11 +40,22 @@ const PostListingCard = ({ data }) => {
           </p>
         </div>
         <div className="flex gap-2 mt-4">
-          <Badge color="blue" variant={"outline"}>
+          {/* <Badge color="blue" variant={"outline"}>
             Primary
           </Badge>
           <Badge color="orange">Orange</Badge>
-          <Badge color="purple">Purple</Badge>
+          <Badge color="purple">Purple</Badge> */}
+          {data?.tags?.length ? (
+            <>
+              {data?.tags?.map((tag, index) => {
+                return (
+                  <Badge key={index} color={getRandomColor()}>
+                    {tag}
+                  </Badge>
+                );
+              })}
+            </>
+          ) : null}
         </div>
       </div>
     </div>

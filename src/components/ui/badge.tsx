@@ -67,6 +67,26 @@ const colorClasses = {
     text: "text-purple-600",
     background: "bg-purple-100",
   },
+  yellow: {
+    text: "text-yellow-600",
+    background: "bg-yellow-100",
+  },
+  teal: {
+    text: "text-teal-600",
+    background: "bg-teal-100",
+  },
+  pink: {
+    text: "text-pink-600",
+    background: "bg-pink-100",
+  },
+  indigo: {
+    text: "text-indigo-600",
+    background: "bg-indigo-100",
+  },
+  gray: {
+    text: "text-gray-600",
+    background: "bg-gray-100",
+  },
 };
 
 const badgeVariants = cva(
@@ -95,7 +115,7 @@ export interface BadgeProps
 
 function Badge({ className, variant, color, ...props }: BadgeProps) {
   const colorClass = color
-    ? `${colorClasses[color].text} ${colorClasses[color].background}`
+    ? `${colorClasses?.[color]?.text} ${colorClasses?.[color]?.background}`
     : "";
   return (
     <div
