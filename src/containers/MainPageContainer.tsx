@@ -66,14 +66,9 @@ import MainPostsContainer from "./posts/index/MainPostsContainer";
 // };
 
 const MainPageContainer = () => {
-  const [getPost, { data }] = useLazyGetPostOverviewQuery();
-  console.log("data", data);
   const todos = useAppSelector((state: RootState) => state.todos);
   console.log("todos", todos);
 
-  useEffect(() => {
-    getPost("665339eec603975d806b3080");
-  }, []);
   return (
     <>
       <MainPostsContainer />

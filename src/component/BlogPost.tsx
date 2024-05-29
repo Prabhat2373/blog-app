@@ -38,6 +38,8 @@
 // export default BlogPost;
 import React from "react";
 
+import RichTextEditor from "@/component/ui/editor/RichTextEditor";
+
 const BlogPost = ({ content }) => {
   const renderContent = (node) => {
     switch (node.type) {
@@ -107,9 +109,14 @@ const BlogPost = ({ content }) => {
 
   return (
     <div>
-      {content.content?.map((node, index) => (
+      {/* {content.content?.map((node, index) => (
         <div key={index}>{renderContent(node)}</div>
-      ))}
+      ))} */}
+      <RichTextEditor
+        value={content}
+        readOnly={true}
+        onChange={(cont) => console.log("changed", cont)}
+      />
     </div>
   );
 };

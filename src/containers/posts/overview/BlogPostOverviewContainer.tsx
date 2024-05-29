@@ -1,6 +1,7 @@
 "use client";
 
 import BlogPost from "@/component/BlogPost";
+import RenderTiptapContent from "@/component/ui/editor/RenderTiptapContent";
 import { useLazyGetPostOverviewQuery } from "@/services/rtk/postsApi";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
@@ -72,6 +73,11 @@ const BlogPostOverviewContainer = () => {
     getPost(postId);
   }, [postId]);
   return <>{data?.content ? <BlogPost content={data?.content} /> : null}</>;
+  // return (
+  //   <>
+  //     {data?.content ? <RenderTiptapContent content={data?.content} /> : null}
+  //   </>
+  // );
 };
 
 export default BlogPostOverviewContainer;

@@ -14,18 +14,21 @@ import {
 } from "@/services/rtk/postsApi";
 import { isSuccess } from "@/utils/utils";
 import { IconBolt, IconClockBolt, IconDeviceFloppy } from "@tabler/icons-react";
-import { Form, Formik } from "formik";
+import { ErrorMessage, Form, Formik } from "formik";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { Descendant } from "slate";
+import { createPostValidation } from "@/validators/posts/posts.validator";
+import InputError from "@/component/form/InputError";
+import Asterisk from "@/component/form/Asterisk";
 
 const CreateBlogPostFormContainer = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [publishPost, { isLoading }] = useCreatePostMutation();
 
   const [thumbnail, setThumbnail] = useState(null);
-  const [content, setContent] = useState<Descendant[]>([{}]);
+  const [content, setContent] = useState<Descendant[]>([]);
 
   const router = useRouter();
   console.log("content", content);
@@ -56,7 +59,7 @@ const CreateBlogPostFormContainer = () => {
   const initialValues = useMemo(() => {
     return {
       title: "",
-      content: {},
+      content: null,
       tags: "",
     };
   }, []);
@@ -64,7 +67,7 @@ const CreateBlogPostFormContainer = () => {
   const fileTypes = ["JPEG", "PNG", "GIF"];
 
   const handleChange = (file) => {
-    setThumbnail(file);
+    setThumbnail(file?.[0]);
   };
 
   return (
@@ -77,9 +80,14 @@ const CreateBlogPostFormContainer = () => {
           </div>
         </div>
       </Modal>
-      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        {({ setFieldValue, values }) => {
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={createPostValidation}
+      >
+        {({ setFieldValue, values, errors }) => {
           console.log("values", values);
+          console.log("errors", errors);
           return (
             <Form className="mx-32 my-20 flex flex-col gap-4">
               <BlogPostDraftHandler content={content} thumbnail={thumbnail} />
@@ -88,14 +96,26 @@ const CreateBlogPostFormContainer = () => {
                   label="Title"
                   name="title"
                   placeholder="Enter About Your Blog"
+                  required
                 />
               </div>
               <div>
-                <Label>Content</Label>
-                <RichTextEditor value={content} onChange={setContent} />
+                <Label>
+                  Content <Asterisk />
+                </Label>
+                <RichTextEditor
+                  value={content}
+                  onChange={(value) => {
+                    setContent(value);
+                    // setFieldValue("content", value);
+                  }}
+                />
+                {errors?.content ? (
+                  <InputError>{errors?.content}</InputError>
+                ) : null}
               </div>
               <div>
-                <Label>Tags</Label>
+                <Label>Tags (optional)</Label>
                 <ReactSelect
                   options={blogCategories}
                   isMulti
@@ -112,12 +132,19 @@ const CreateBlogPostFormContainer = () => {
                   type="file"
                   onChange={(e) => setThumbnail(e?.target?.files?.[0])}
                 /> */}
+                <Label>Thumbnail</Label>
                 <FileUploader
                   multiple={true}
-                  handleChange={handleChange}
+                  handleChange={(file) => {
+                    setFieldValue("thumbnail", file);
+                    handleChange(file);
+                  }}
                   name="file"
                   types={fileTypes}
                 />
+                {errors?.thumbnail ? (
+                  <InputError>{errors?.thumbnail}</InputError>
+                ) : null}
               </div>
               <div className="flex gap-3 items-center justify-end">
                 <Button variant={"outline"}>

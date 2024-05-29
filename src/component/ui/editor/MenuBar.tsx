@@ -70,7 +70,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const MenuBar = ({ value, toolbar = {} }) => {
+const MenuBar = ({ value, toolbar = {}, readOnly }) => {
   const { editor } = useCurrentEditor();
   const colorInputRef = useRef<HTMLInputElement>(null);
 
@@ -142,8 +142,12 @@ const MenuBar = ({ value, toolbar = {} }) => {
   }, []);
 
   return (
-    <>
-      {editor && (
+    <div
+      className={classNames({
+        hidden: readOnly,
+      })}
+    >
+      {editor && !readOnly && (
         <BubbleMenu
           className="bubble-menu"
           tippyOptions={{ duration: 100 }}
@@ -596,15 +600,15 @@ const MenuBar = ({ value, toolbar = {} }) => {
           hidden
           accept="image/jpeg,image/gif,image/png,image/x-eps"
         />
-        {/* <Button
+        <Button
           type="button"
           variant={"outline"}
-          onClick={() => console.log("output", editor.getJSON())}
+          onClick={() => console.log("output", editor.getHTML())}
         >
           <IconDownload />
-        </Button> */}
+        </Button>
       </div>
-    </>
+    </div>
   );
 };
 

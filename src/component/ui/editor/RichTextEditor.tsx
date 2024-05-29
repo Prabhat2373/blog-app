@@ -21,7 +21,7 @@ import Code from "@tiptap/extension-code";
 import ErrorText from "../error-text";
 import MenuBar from "./MenuBar";
 
-const RichText = (props) => {
+const RichTextEditor = (props) => {
   const {
     name,
     label,
@@ -34,6 +34,7 @@ const RichText = (props) => {
     toolbar = {},
     tableResize = false,
   } = props;
+  const readOnly = props?.readOnly;
 
   const CustomDocument = Document.extend({
     content: "heading block*",
@@ -45,7 +46,6 @@ const RichText = (props) => {
         class: "my-custom-class",
       },
     }),
-    ImageResize,
     StarterKit.configure({
       document: false,
     }),
@@ -61,6 +61,7 @@ const RichText = (props) => {
     Table.configure({
       resizable: tableResize,
     }),
+    ImageResize,
     Image.configure({
       allowBase64: true,
       inline: true,
@@ -79,6 +80,7 @@ const RichText = (props) => {
       },
     }),
   ];
+
   const contentRef = useRef(value);
 
   const [border, setBorder] = useState("");
@@ -120,8 +122,12 @@ const RichText = (props) => {
         )}
 
         <EditorProvider
+          editable={!readOnly}
+          enableCoreExtensions
           autofocus
-          slotBefore={<MenuBar value={value} toolbar={toolbar} />}
+          slotBefore={
+            <MenuBar readOnly={readOnly} value={value} toolbar={toolbar} />
+          }
           extensions={extensions}
           editorProps={{
             attributes: {
@@ -141,7 +147,7 @@ const RichText = (props) => {
   );
 };
 
-RichText.propTypes = {
+RichTextEditor.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   error: PropTypes.string,
@@ -151,7 +157,7 @@ RichText.propTypes = {
   value: PropTypes.string,
 };
 
-RichText.defaultProps = {
+RichTextEditor.defaultProps = {
   error: "",
   disabled: false,
   required: false,
@@ -159,4 +165,4 @@ RichText.defaultProps = {
   value: "",
 };
 
-export default RichText;
+export default RichTextEditor;
