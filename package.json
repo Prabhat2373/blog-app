@@ -23,6 +23,8 @@
     "@reduxjs/toolkit": "^2.2.5",
     "@tabler/core": "^1.0.0-beta20",
     "@tabler/icons-react": "^3.5.0",
+    "@tiptap-pro/extension-table-of-contents": "^2.8.8",
+    "@tiptap-pro/extension-unique-id": "^2.8.8",
     "@tiptap/extension-code": "^2.4.0",
     "@tiptap/extension-code-block-lowlight": "^2.4.0",
     "@tiptap/extension-color": "^2.4.0",
@@ -67,6 +69,8 @@
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "tiptap-extension-resize-image": "^1.1.5",
+    "tiptap-unique-id": "^1.2.1",
+    "uuid": "^9.0.1",
     "yup": "^1.4.0"
   },
   "devDependencies": {

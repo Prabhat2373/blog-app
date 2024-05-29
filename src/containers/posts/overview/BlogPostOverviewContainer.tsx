@@ -1,6 +1,8 @@
 "use client";
 
+import TableOfContent from "@/component/blog/TableOfContent";
 import BlogPost from "@/component/BlogPost";
+import Container from "@/component/ui/Container";
 import RenderTiptapContent from "@/component/ui/editor/RenderTiptapContent";
 import { useLazyGetPostOverviewQuery } from "@/services/rtk/postsApi";
 import { useParams, useRouter } from "next/navigation";
@@ -72,7 +74,13 @@ const BlogPostOverviewContainer = () => {
   useEffect(() => {
     getPost(postId);
   }, [postId]);
-  return <>{data?.content ? <BlogPost content={data?.content} /> : null}</>;
+  return (
+    <>
+      <Container>
+        {data?.content ? <BlogPost content={data?.content} /> : null}
+      </Container>
+    </>
+  );
   // return (
   //   <>
   //     {data?.content ? <RenderTiptapContent content={data?.content} /> : null}

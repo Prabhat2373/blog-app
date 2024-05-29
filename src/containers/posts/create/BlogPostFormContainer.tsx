@@ -53,7 +53,7 @@ const CreateBlogPostFormContainer = () => {
     console.log("Blog post created:", response.data);
     if (isSuccess(response)) {
       toast.success(response?.data?.message);
-      // router.push(`/posts/${response?.data?.data?._id}`);
+      router.push(`/posts/${response?.data?.data?._id}`);
     }
   };
   const initialValues = useMemo(() => {

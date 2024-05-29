@@ -70,8 +70,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const MenuBar = ({ value, toolbar = {}, readOnly }) => {
-  const { editor } = useCurrentEditor();
+const MenuBar = ({ value, toolbar = {}, readOnly, editor }) => {
+  // const { editor } = useCurrentEditor();
+  if (!editor) {
+    return null;
+  }
   const colorInputRef = useRef<HTMLInputElement>(null);
 
   const { image = true, table = true, color = true } = toolbar;
@@ -134,9 +137,6 @@ const MenuBar = ({ value, toolbar = {}, readOnly }) => {
     }
   }, [editor]);
 
-  if (!editor) {
-    return null;
-  }
   useEffect(() => {
     editor.chain().focus().toggleHeading({ level: 1 }).run();
   }, []);
