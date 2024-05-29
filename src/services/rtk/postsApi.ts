@@ -42,14 +42,14 @@ export const postsApi = createApi({
     }),
     saveDrafts: builder.mutation({
       query: (body) => ({
-        url: `/blogs/drafts`,
+        url: `/posts/drafts`,
         method: "POST",
         body,
       }),
     }),
     getSavedDrafts: builder.query({
       query: () => ({
-        url: `/blogs/user-drafts`,
+        url: `/posts/drafts`,
       }),
     }),
   }),

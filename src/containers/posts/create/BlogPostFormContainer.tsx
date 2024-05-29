@@ -7,6 +7,7 @@ import RichTextEditor from "@/component/ui/editor/RichTextEditor";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import BlogPostDraftHandler from "@/helpers/form/BlogPostDraftHandler";
+import { FileUploader } from "react-drag-drop-files";
 import {
   useCreatePostMutation,
   useSaveDraftsMutation,
@@ -60,6 +61,12 @@ const CreateBlogPostFormContainer = () => {
     };
   }, []);
 
+  const fileTypes = ["JPEG", "PNG", "GIF"];
+
+  const handleChange = (file) => {
+    setThumbnail(file);
+  };
+
   return (
     <>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={"Schedule For Later"}>
@@ -101,9 +108,15 @@ const CreateBlogPostFormContainer = () => {
                 />
               </div>
               <div>
-                <input
+                {/* <input
                   type="file"
                   onChange={(e) => setThumbnail(e?.target?.files?.[0])}
+                /> */}
+                <FileUploader
+                  multiple={true}
+                  handleChange={handleChange}
+                  name="file"
+                  types={fileTypes}
                 />
               </div>
               <div className="flex gap-3 items-center justify-end">
