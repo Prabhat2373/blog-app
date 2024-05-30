@@ -42,7 +42,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
   author,
 }) => {
   return (
-    <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden flex">
+    <div className=" mx-auto bg-white rounded-xl shadow-md overflow-hidden flex">
       <div className={`p-4 flex flex-col w-full`}>
         <div className="flex items-center space-x-4 justify-between">
           <div className="flex items-center space-x-4">
