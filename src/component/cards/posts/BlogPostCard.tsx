@@ -43,18 +43,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
 }) => {
   return (
     <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden flex">
-      {thumbnailUrl && (
-        <div className="w-48 flex-shrink-0">
-          <img
-            className="object-cover h-full w-full"
-            src={thumbnailUrl}
-            alt="Blog thumbnail"
-            width={1920}
-            height={1080}
-          />
-        </div>
-      )}
-      <div className={`p-4 flex flex-col ${thumbnailUrl ? "w-3/4" : "w-full"}`}>
+      <div className={`p-4 flex flex-col w-full`}>
         <div className="flex items-center space-x-4 justify-between">
           <div className="flex items-center space-x-4">
             <Avatar className="cursor-pointer">
@@ -74,7 +63,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
           </div>
           <Menubar>
             <MenubarMenu>
-              <MenubarTrigger>
+              <MenubarTrigger className="border-none">
                 <Ellipsis />
               </MenubarTrigger>
               <MenubarContent>
@@ -91,6 +80,17 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
             </MenubarMenu>
           </Menubar>
         </div>
+        {thumbnailUrl && (
+          <div className="w-full flex-shrink-0 rounded-md my-4">
+            <img
+              className="object-cover h-[200px] w-full rounded-md"
+              src={thumbnailUrl}
+              alt="Blog thumbnail"
+              //   width={1920}
+              height={200}
+            />
+          </div>
+        )}
         <div className="mt-2">
           <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
           <p className="mt-1 text-gray-600">
@@ -102,19 +102,21 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
           </p>
         </div>
         <div className="mt-2 flex items-center space-x-2 text-sm text-gray-500">
-          <span>{readMinutes} min read</span>
+          <span>{readMinutes || 10} min read</span>
           <div className="flex flex-wrap space-x-2">
-            {tags.map((tag) => (
-              <span
-                key={tag}
-                className="bg-gray-200 text-gray-700 px-2 py-1 rounded-full"
-              >
-                {tag}
-              </span>
-            ))}
+            {tags?.length
+              ? tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="bg-gray-200 text-gray-700 px-2 py-1 rounded-full"
+                  >
+                    {tag}
+                  </span>
+                ))
+              : null}
           </div>
         </div>
-        <div className="mt-4 flex items-center justify-between">
+        <div className="mt-4 flex items-center justify-end">
           <button
             onClick={onSave}
             className="flex items-center text-gray-500 hover:text-gray-700"
