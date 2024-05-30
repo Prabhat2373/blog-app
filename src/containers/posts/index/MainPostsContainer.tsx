@@ -1,4 +1,5 @@
 "use client";
+import BlogPostCard from "@/component/cards/posts/BlogPostCard";
 import PostListingCard from "@/component/cards/posts/PostListingCard";
 import Container from "@/component/ui/Container";
 import Tabs, {
@@ -27,12 +28,21 @@ const MainPostsContainer = () => {
 
           <TabContent>
             <TabPane id="account">
-              <div className="grid grid-cols-3 gap-4">
-                {data?.data?.map((blog) => {
+              <div className="grid grid-cols-1 gap-4">
+                {data?.data?.map((blog, index) => {
                   return (
                     <>
                       {/* <Link href={`/posts/${blog?._id}`}>{blog?.title}</Link> */}
-                      <PostListingCard data={blog} />
+                      {/* <PostListingCard data={blog} /> */}
+                      <BlogPostCard
+                        {...blog}
+                        title={blog?.title}
+                        thumbnailUrl={
+                          index % 2 !== 0
+                            ? "https://images.unsplash.com/photo-1716386480038-1e375da14e1a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8"
+                            : undefined
+                        }
+                      />
                     </>
                   );
                 })}
