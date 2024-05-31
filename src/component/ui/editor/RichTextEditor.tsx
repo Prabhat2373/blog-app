@@ -170,7 +170,6 @@ const RichTextEditor = (props) => {
         })}
       >
         <div className="sticky top-0">
-          <h1>Table Of Contents</h1>
           {readOnly ? <ToC items={items} editor={editor} /> : null}
         </div>
       </div>

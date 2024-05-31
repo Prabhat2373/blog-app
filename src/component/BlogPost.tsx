@@ -52,6 +52,7 @@ import {
 import { Ellipsis } from "lucide-react";
 import Link from "next/link";
 import WithTooltip from "./ui/WithTooltip";
+import { TableOfContents } from "./TableOfContents";
 
 const BlogPost = ({ content, meta }) => {
   const renderContent = (node) => {
@@ -127,6 +128,8 @@ const BlogPost = ({ content, meta }) => {
       {/* {content.content?.map((node, index) => (
         <div key={index}>{renderContent(node)}</div>
       ))} */}
+
+      {/* <TableOfContents /> */}
 
       <RichTextEditor
         value={content}

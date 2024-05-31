@@ -8,7 +8,7 @@ const TableOfContent = ({ content }) => {
 
   useEffect(() => {
     if (content) {
-      const extractedHeadings = extractHeadings(content);
+    const extractedHeadings = extractHeadings(content);
       setHeadings(extractedHeadings);
     }
   }, [content]);
