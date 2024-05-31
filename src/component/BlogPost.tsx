@@ -52,7 +52,8 @@ import {
 import { Ellipsis } from "lucide-react";
 import Link from "next/link";
 import WithTooltip from "./ui/WithTooltip";
-import { TableOfContents } from "./TableOfContents";
+
+import PostDiscussionContainer from "@/containers/posts/overview/discussion/PostDiscussionContainer";
 
 const BlogPost = ({ content, meta }) => {
   const renderContent = (node) => {
@@ -192,6 +193,7 @@ const BlogPost = ({ content, meta }) => {
         }
         onChange={(cont) => console.log("changed", cont)}
       />
+      <PostDiscussionContainer />
     </div>
   );
 };

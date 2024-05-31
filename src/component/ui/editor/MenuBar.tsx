@@ -154,18 +154,21 @@ const MenuBar = ({ value, toolbar = {}, readOnly, editor }) => {
           editor={editor}
         >
           <button
+            type="button"
             onClick={() => editor.chain().focus().toggleBold().run()}
             className={editor.isActive("bold") ? "is-active" : ""}
           >
             Bold
           </button>
           <button
+            type="button"
             onClick={() => editor.chain().focus().toggleItalic().run()}
             className={editor.isActive("italic") ? "is-active" : ""}
           >
             Italic
           </button>
           <button
+            type="button"
             onClick={() => editor.chain().focus().toggleStrike().run()}
             className={editor.isActive("strike") ? "is-active" : ""}
           >
@@ -184,6 +187,7 @@ const MenuBar = ({ value, toolbar = {}, readOnly, editor }) => {
             <IconCode className="h-4 w-4" />
           </Button>
           <button
+            type="button"
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 1 }).run()
             }
@@ -192,6 +196,7 @@ const MenuBar = ({ value, toolbar = {}, readOnly, editor }) => {
             H1
           </button>
           <button
+            type="button"
             onClick={() => editor.chain().focus().toggleHighlight().run()}
             disabled={!editor.can().chain().focus().toggleStrike().run()}
             className={editor.isActive("strike") ? "is-active" : ""}

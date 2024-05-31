@@ -1,16 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import {
-  EditorContent,
-  EditorProvider,
-  useCurrentEditor,
-  useEditor,
-} from "@tiptap/react";
+import { EditorContent, useEditor } from "@tiptap/react";
 
+import Code from "@tiptap/extension-code";
 import { Color } from "@tiptap/extension-color";
 import Document from "@tiptap/extension-document";
 import Highlight from "@tiptap/extension-highlight";
 import Image from "@tiptap/extension-image";
+import Placeholder from "@tiptap/extension-placeholder";
 import Table from "@tiptap/extension-table";
 import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
@@ -19,9 +16,7 @@ import TextAlign from "@tiptap/extension-text-align";
 import TextStyle from "@tiptap/extension-text-style";
 import StarterKit from "@tiptap/starter-kit";
 import PropTypes from "prop-types";
-import Placeholder from "@tiptap/extension-placeholder";
 import ImageResize from "tiptap-extension-resize-image";
-import Code from "@tiptap/extension-code";
 
 import {
   TableOfContents,
@@ -30,13 +25,19 @@ import {
 
 // import UniqueID from '@tiptap-pro/extension-unique-id'
 // import UniqueId from "tiptap-unique-id";
+import UniqueID from "@tiptap-pro/extension-unique-id";
+import classNames from "classnames";
 import ErrorText from "../error-text";
 import MenuBar from "./MenuBar";
-import UniqueID from "@tiptap-pro/extension-unique-id";
 import { ToC } from "./ToC";
-import classNames from "classnames";
 
-const RichTextEditor = (props) => {
+interface IRichTextEditorProps {
+  name?: string;
+  label?: string;
+  output?: "json" | "html";
+}
+
+const RichTextEditor = (props: IRichTextEditorProps) => {
   const {
     name,
     label,
@@ -49,6 +50,7 @@ const RichTextEditor = (props) => {
     toolbar = {},
     tableResize = false,
     children,
+    output,
   } = props;
   const readOnly = props?.readOnly;
 
@@ -133,18 +135,9 @@ const RichTextEditor = (props) => {
   }, [error]);
   const editor = useEditor({
     editable: !readOnly,
-    // enableCoreExtensions
-    // autofocus,
-    // slotBefore:{
-    //   <MenuBar readOnly={readOnly} value={value} toolbar={toolbar} />
-    // }
+
     extensions: extensions,
-    // editorProps={{
-    //   attributes: {
-    //     class:
-    //       "prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none min-h-48",
-    //   },
-    // }}
+
     editorProps: {
       attributes: {
         class:
@@ -154,9 +147,14 @@ const RichTextEditor = (props) => {
     content: contentRef.current,
 
     onUpdate: ({ editor }) => {
-      onChange(editor?.getJSON());
+      if (output === "json") {
+        onChange(editor?.getJSON());
+      } else if (output === "html") {
+        onChange(editor?.getHTML());
+      } else {
+        onChange(editor?.getJSON());
+      }
     },
-    // name: name,
   });
 
   // const { editor } = useCurrentEditor();
@@ -164,19 +162,9 @@ const RichTextEditor = (props) => {
   return (
     <div className="grid grid-cols-12 gap-4">
       <div
-        className={classNames({
-          "col-span-2 ": readOnly,
-          hidden: !readOnly,
-        })}
-      >
-        <div className="sticky top-0">
-          {readOnly ? <ToC items={items} editor={editor} /> : null}
-        </div>
-      </div>
-      <div
         className={classNames("input-rich-container rich-editor  ", {
           "col-span-12": !readOnly,
-          "col-span-10": readOnly,
+          "col-span-9": readOnly,
         })}
       >
         <fieldset
@@ -225,6 +213,16 @@ const RichTextEditor = (props) => {
           <EditorContent editor={editor} content={contentRef.target} />
         </fieldset>
         {!disabled && error && <ErrorText error={error} />}
+      </div>
+      <div
+        className={classNames({
+          "col-span-3 ": readOnly,
+          hidden: !readOnly,
+        })}
+      >
+        <div className="sticky top-0">
+          {readOnly ? <ToC items={items} editor={editor} /> : null}
+        </div>
       </div>
     </div>
   );

@@ -19,3 +19,13 @@ export const extractFirstParagraph = (jsonArray) => {
   }
   return null; // Return null if no paragraph is found
 };
+
+export const getAcronym = (input: string): string => {
+  if (!input) return "";
+  const words = input.trim().split(/\s+/);
+  return words
+    .slice(0, 3) // Take only the first three words
+    .map((word) => word.charAt(0))
+    .join("")
+    .toUpperCase();
+};

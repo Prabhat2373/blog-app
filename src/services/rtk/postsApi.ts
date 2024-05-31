@@ -12,6 +12,11 @@ export const postsApi = createApi({
         body,
       }),
     }),
+    getPostComments: builder.query({
+      query: (id) => ({
+        url: `/posts/comments/${id}`,
+      }),
+    }),
     getAllPosts: builder.query({
       query: () => ({
         url: `/blogs`,
@@ -29,9 +34,10 @@ export const postsApi = createApi({
       }),
     }),
     commentOnPost: builder.mutation({
-      query: (id) => ({
-        url: `/blogs/comment/${id}`,
+      query: ({ blogId, body }) => ({
+        url: `/blogs/comment/${blogId}`,
         method: "POST",
+        body,
       }),
     }),
     sharePost: builder.mutation({
@@ -66,4 +72,5 @@ export const {
   useSaveDraftsMutation,
   useLazyGetSavedDraftsQuery,
   useGetSavedDraftsQuery,
+  useLazyGetPostCommentsQuery,
 } = postsApi;
