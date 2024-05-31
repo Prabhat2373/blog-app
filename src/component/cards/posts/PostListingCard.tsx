@@ -4,13 +4,10 @@ import { IconArrowUpRight } from "@tabler/icons-react";
 import Link from "next/link";
 import React from "react";
 import moment from "moment";
+import { getRandomColor } from "@/utils/utils";
 
 const PostListingCard = ({ data }) => {
-  const colors = ["blue", "orange", "purple", "green", "red", "yellow"];
 
-  const getRandomColor = () => {
-    return colors[Math.floor(Math.random() * colors.length)];
-  };
   return (
     <div className=" flex flex-col justify-center gap-5">
       <img

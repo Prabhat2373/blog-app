@@ -1,12 +1,21 @@
 "use client";
 
-import TableOfContent from "@/component/blog/TableOfContent";
 import BlogPost from "@/component/BlogPost";
 import Container from "@/component/ui/Container";
-import RenderTiptapContent from "@/component/ui/editor/RenderTiptapContent";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarTrigger,
+} from "@/components/ui/menubar";
 import { useLazyGetPostOverviewQuery } from "@/services/rtk/postsApi";
+import { Ellipsis } from "lucide-react";
+import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 const content = {
   type: "doc",
@@ -74,10 +83,13 @@ const BlogPostOverviewContainer = () => {
   useEffect(() => {
     getPost(postId);
   }, [postId]);
+
+  
   return (
     <>
       <Container>
-        {data?.content ? <BlogPost content={data?.content} /> : null}
+      
+        {data?.content ? <BlogPost content={data?.content} meta={data}/> : null}
       </Container>
     </>
   );

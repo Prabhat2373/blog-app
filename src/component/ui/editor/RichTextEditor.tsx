@@ -48,6 +48,7 @@ const RichTextEditor = (props) => {
     value,
     toolbar = {},
     tableResize = false,
+    children,
   } = props;
   const readOnly = props?.readOnly;
 
@@ -180,7 +181,9 @@ const RichTextEditor = (props) => {
         })}
       >
         <fieldset
-          className={"border rounded-md"}
+          className={classNames({
+            "border rounded-md": !readOnly,
+          })}
           onFocusCapture={() => handleInput("active")}
           onBlur={() => handleInput("")}
         >
@@ -219,6 +222,7 @@ const RichTextEditor = (props) => {
           <></>
         </EditorProvider> */}
           <MenuBar editor={editor} readOnly={readOnly} value={value} />
+          {children}
           <EditorContent editor={editor} content={contentRef.target} />
         </fieldset>
         {!disabled && error && <ErrorText error={error} />}
