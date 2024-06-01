@@ -11,6 +11,7 @@ const PostDiscussionContainer = () => {
   const params = useParams();
   const postId = params?.id;
 
+  const [activeCommentId, setActiveCommentId] = useState("");
   const [getComments, { data }] = useLazyGetPostCommentsQuery();
   const [content, setContent] = useState<Descendant[]>([]);
 
@@ -46,7 +47,7 @@ const PostDiscussionContainer = () => {
             <PostCommentFormContainer />
           </div>
           {data?.data?.map((comment) => {
-            return <BlogCommentCard data={comment} />;
+            return <BlogCommentCard data={comment} setActiveCommentId={setActiveCommentId} activeCommentId={activeCommentId}/>;
           })}
         </div>
       </section>

@@ -21,7 +21,7 @@ const PostCommentFormContainer = () => {
 
   const handlePostComment = async (data: typeof initialValues) => {
     const payload = {
-      blogId: params?.id,
+      id: params?.id,
       body: {
         content,
       },
@@ -46,7 +46,6 @@ const PostCommentFormContainer = () => {
           <Button className="my-3">Post Comment</Button>
         </Form>
       </Formik>
-    
     </div>
   );
 };

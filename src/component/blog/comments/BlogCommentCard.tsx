@@ -1,9 +1,43 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import CommentReplyFormContainer from "@/containers/posts/forms/CommentReplyFormContainer";
 import { formatDateTime } from "@/helpers/date.helpers";
+import { useLazyGetCommentRepliesQuery } from "@/services/rtk/postsApi";
 import { getAcronym } from "@/utils/utils";
-import React from "react";
+import { MoreHorizontal, MoreVertical } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import CommentReplayCard from "./CommentReplayCard";
+import classNames from "classnames";
 
-const BlogCommentCard = ({ data }) => {
+const BlogCommentCard = ({ data, setActiveCommentId, activeCommentId }) => {
+  const [getReplies, { isLoading, data: commentReplies }] =
+    useLazyGetCommentRepliesQuery();
+  const [enableReply, setEnableReply] = useState(false);
+
+  const commentId = data?._id;
+
+  const handleOnSuccess = () => {
+    setEnableReply(false);
+    setActiveCommentId("");
+  };
+
+  const fetchCommentReplies = () => {
+    if (commentId) {
+      getReplies(commentId);
+    }
+  };
+  useEffect(() => {
+    fetchCommentReplies();
+  }, [commentId]);
+
+  console.log("commentReplies", commentReplies);
   return (
     <article className="p-6 text-base bg-white rounded-lg dark:bg-gray-900">
       <div className="flex justify-between items-center mb-2">
@@ -27,6 +61,20 @@ const BlogCommentCard = ({ data }) => {
           </p>
         </div>
         {/* dropdown menu  */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button size="icon" variant="ghost" className="h-8 w-8">
+              <MoreHorizontal className="h-3.5 w-3.5" />
+              <span className="sr-only">More</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem>Edit</DropdownMenuItem>
+            <DropdownMenuItem>Export</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Trash</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       <p className="text-gray-500 dark:text-gray-400">
         <div
@@ -39,6 +87,11 @@ const BlogCommentCard = ({ data }) => {
         <button
           type="button"
           className="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium"
+          onClick={() => {
+            setActiveCommentId(data?._id);
+            // setEnableReply((prev) => !prev);
+            setEnableReply(true);
+          }}
         >
           <svg
             className="mr-1.5 w-3.5 h-3.5"
@@ -58,6 +111,18 @@ const BlogCommentCard = ({ data }) => {
           Reply
         </button>
       </div>
+      <div
+        className={classNames({
+          hidden: !commentReplies?.data?.length,
+        })}
+      >
+        {commentReplies?.data?.map((reply) => {
+          return <CommentReplayCard data={reply} key={reply?._id} />;
+        })}
+      </div>
+      {enableReply && activeCommentId === data?._id ? (
+        <CommentReplyFormContainer comment={data} onSuccess={handleOnSuccess} />
+      ) : null}
     </article>
   );
 };

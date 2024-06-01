@@ -58,6 +58,18 @@ export const postsApi = createApi({
         url: `/posts/drafts`,
       }),
     }),
+    replyToComment: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `/comment/${id}/reply`,
+        method: "POST",
+        body,
+      }),
+    }),
+    getCommentReplies: builder.query({
+      query: (id) => ({
+        url: `/comment/${id}/replies`,
+      }),
+    }),
   }),
 });
 
@@ -73,4 +85,6 @@ export const {
   useLazyGetSavedDraftsQuery,
   useGetSavedDraftsQuery,
   useLazyGetPostCommentsQuery,
+  useReplyToCommentMutation,
+  useLazyGetCommentRepliesQuery,
 } = postsApi;
