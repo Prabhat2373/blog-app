@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import "./modules/tiptap.module.css";
+@import "./modules/file-input.module.css";
 
 @layer base {
   :root {

@@ -21,6 +21,7 @@ import ImageResize from "tiptap-extension-resize-image";
 import {
   TableOfContents,
   getHierarchicalIndexes,
+  getLinearIndexes,
 } from "@tiptap-pro/extension-table-of-contents";
 
 // import UniqueID from '@tiptap-pro/extension-unique-id'
@@ -104,14 +105,16 @@ const RichTextEditor = (props: IRichTextEditorProps) => {
       },
     }),
     UniqueID.configure({
-      types: ["heading", "paragraph"],
+      types: ["heading"],
     }),
     // TableOfContents.configure({
     //   anchorTypes: ["heading", "customAnchorType"],
     // }),
     TableOfContents.configure({
       getIndex: getHierarchicalIndexes,
+      anchorTypes: ["heading"],
       onUpdate(content) {
+        console.log("toccontent", content);
         setItems(content);
       },
     }),

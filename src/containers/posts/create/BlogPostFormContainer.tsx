@@ -22,6 +22,7 @@ import { Descendant } from "slate";
 import { createPostValidation } from "@/validators/posts/posts.validator";
 import InputError from "@/component/form/InputError";
 import Asterisk from "@/component/form/Asterisk";
+import FileDropableInput from "@/component/form/FileDropableInput";
 
 const CreateBlogPostFormContainer = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -64,7 +65,7 @@ const CreateBlogPostFormContainer = () => {
     };
   }, []);
 
-  const fileTypes = ["JPEG", "PNG", "GIF"];
+  const fileTypes = ["JPEG", "PNG"];
 
   const handleChange = (file) => {
     setThumbnail(file?.[0]);
@@ -128,14 +129,10 @@ const CreateBlogPostFormContainer = () => {
                 />
               </div>
               <div>
-                {/* <input
-                  type="file"
-                  onChange={(e) => setThumbnail(e?.target?.files?.[0])}
-                /> */}
                 <Label>Thumbnail</Label>
-                <FileUploader
+                <FileDropableInput
                   multiple={true}
-                  handleChange={(file) => {
+                  onChange={(file) => {
                     setFieldValue("thumbnail", file);
                     handleChange(file);
                   }}
