@@ -12,7 +12,7 @@ import { formatDateTime } from "@/helpers/date.helpers";
 import { useLazyGetCommentRepliesQuery } from "@/services/rtk/postsApi";
 import { getAcronym } from "@/utils/utils";
 import { MoreHorizontal, MoreVertical } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import CommentReplayCard from "./CommentReplayCard";
 import classNames from "classnames";
 
@@ -23,16 +23,17 @@ const BlogCommentCard = ({ data, setActiveCommentId, activeCommentId }) => {
 
   const commentId = data?._id;
 
-  const handleOnSuccess = () => {
-    setEnableReply(false);
-    setActiveCommentId("");
-  };
-
-  const fetchCommentReplies = () => {
+  const fetchCommentReplies = useCallback(() => {
     if (commentId) {
       getReplies(commentId);
     }
+  }, [commentId]);
+  const handleOnSuccess = () => {
+    setEnableReply(false);
+    setActiveCommentId("");
+    fetchCommentReplies();
   };
+
   useEffect(() => {
     fetchCommentReplies();
   }, [commentId]);
@@ -117,7 +118,13 @@ const BlogCommentCard = ({ data, setActiveCommentId, activeCommentId }) => {
         })}
       >
         {commentReplies?.data?.map((reply) => {
-          return <CommentReplayCard data={reply} key={reply?._id} />;
+          return (
+            <CommentReplayCard
+              data={reply}
+              key={reply?._id}
+              refetch={fetchCommentReplies}
+            />
+          );
         })}
       </div>
       {enableReply && activeCommentId === data?._id ? (

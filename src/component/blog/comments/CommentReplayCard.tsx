@@ -9,8 +9,21 @@ import {
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { formatDateTime } from "@/helpers/date.helpers";
+import { useDeleteReplyMutation } from "@/services/rtk/postsApi";
+import { isSuccess } from "@/utils/utils";
+import { toast } from "react-toastify";
 
-const CommentReplayCard = ({ data }) => {
+const CommentReplayCard = ({ data, refetch }) => {
+  const [deleteReply, { isLoading }] = useDeleteReplyMutation();
+  const replyId = data?._id;
+  const handleDeleteReply = async () => {
+    const res = await deleteReply(replyId);
+
+    if (isSuccess(res)) {
+      toast.success(res?.data?.message);
+      refetch();
+    }
+  };
   return (
     <article className="p-6 mb-3 ml-6 lg:ml-12 text-base bg-white rounded-lg dark:bg-gray-900">
       <footer className="flex justify-between items-center mb-2">
@@ -40,7 +53,9 @@ const CommentReplayCard = ({ data }) => {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem>Edit</DropdownMenuItem>
-            <DropdownMenuItem>Export</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleDeleteReply}>
+              Delete
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Trash</DropdownMenuItem>
           </DropdownMenuContent>

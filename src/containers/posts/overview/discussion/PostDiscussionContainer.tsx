@@ -1,11 +1,11 @@
-import RichTextEditor from "@/component/ui/editor/RichTextEditor";
-import { Button } from "@/components/ui/button";
-import React, { useEffect, useState } from "react";
-import { Descendant } from "slate";
-import PostCommentFormContainer from "../../forms/PostCommentFormContainer";
-import { useParams } from "next/navigation";
-import { useLazyGetPostCommentsQuery } from "@/services/rtk/postsApi";
 import BlogCommentCard from "@/component/blog/comments/BlogCommentCard";
+import WithEmptyData from "@/component/ui/WithEmptyData";
+import { Button } from "@/components/ui/button";
+import { useLazyGetPostCommentsQuery } from "@/services/rtk/postsApi";
+import classNames from "classnames";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import PostCommentFormContainer from "../../forms/PostCommentFormContainer";
 
 const PostDiscussionContainer = () => {
   const params = useParams();
@@ -13,7 +13,7 @@ const PostDiscussionContainer = () => {
 
   const [activeCommentId, setActiveCommentId] = useState("");
   const [getComments, { data }] = useLazyGetPostCommentsQuery();
-  const [content, setContent] = useState<Descendant[]>([]);
+  const [enableCommentForm, setEnableCommentForm] = useState(false);
 
   const fetchComments = () => {
     if (postId) {
@@ -25,6 +25,15 @@ const PostDiscussionContainer = () => {
     fetchComments();
   }, [postId]);
 
+  const handleOnSuccess = () => {
+    fetchComments();
+    setEnableCommentForm(false);
+  };
+
+  const comments = data?.data;
+
+  console.log("enableCommentForm", enableCommentForm);
+
   console.log("comments", data);
   return (
     <>
@@ -32,23 +41,40 @@ const PostDiscussionContainer = () => {
         <div className="">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">
-              Discussion (20)
+              Discussions ({comments?.length})
             </h2>
           </div>
-          <div>
-            {/* <RichTextEditor
-              value={content}
-              onChange={(value) => {
-                setContent(value);
-                // setFieldValue("content", value);
-              }}
-            />
-            <Button className="my-3">Post Comment</Button> */}
-            <PostCommentFormContainer />
+          <div
+            className={classNames({
+              hidden: !enableCommentForm,
+            })}
+          >
+            <PostCommentFormContainer onSuccess={handleOnSuccess} />
           </div>
-          {data?.data?.map((comment) => {
-            return <BlogCommentCard data={comment} setActiveCommentId={setActiveCommentId} activeCommentId={activeCommentId}/>;
-          })}
+          <WithEmptyData
+            isEmpty={enableCommentForm && !comments?.length}
+            title={"No Comments Yet!"}
+            actionComponent={
+              <>
+                <Button
+                  type="button"
+                  onClick={() => setEnableCommentForm(true)}
+                >
+                  Post a Comment!
+                </Button>
+              </>
+            }
+          >
+            {comments?.map((comment) => {
+              return (
+                <BlogCommentCard
+                  data={comment}
+                  setActiveCommentId={setActiveCommentId}
+                  activeCommentId={activeCommentId}
+                />
+              );
+            })}
+          </WithEmptyData>
         </div>
       </section>
     </>

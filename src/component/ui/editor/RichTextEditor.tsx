@@ -35,6 +35,8 @@ interface IRichTextEditorProps {
   name?: string;
   label?: string;
   output?: "json" | "html";
+  withoutForceTitle?: boolean;
+  placeholder?: string;
 }
 
 const RichTextEditor = (props: IRichTextEditorProps) => {
@@ -51,6 +53,8 @@ const RichTextEditor = (props: IRichTextEditorProps) => {
     tableResize = false,
     children,
     output,
+    withoutForceTitle,
+    placeholder,
   } = props;
   const readOnly = props?.readOnly;
 
@@ -92,11 +96,11 @@ const RichTextEditor = (props: IRichTextEditorProps) => {
     Placeholder.configure({
       placeholder: ({ node }) => {
         console.log("node", node);
-        if (node.type.name === "heading") {
+        if (node.type.name === "heading" && !withoutForceTitle) {
           return "What’s the title?";
         }
 
-        return "Can you add some further context?";
+        return placeholder || "Can you add some further context?";
       },
     }),
     UniqueID.configure({
@@ -159,6 +163,11 @@ const RichTextEditor = (props: IRichTextEditorProps) => {
 
   // const { editor } = useCurrentEditor();
 
+  useEffect(() => {
+    if (editor && !withoutForceTitle) {
+      editor.chain().focus().toggleHeading({ level: 1 }).run();
+    }
+  }, [editor]);
   return (
     <div className="grid grid-cols-12 gap-4">
       <div

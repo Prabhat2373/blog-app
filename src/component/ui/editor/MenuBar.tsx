@@ -137,9 +137,9 @@ const MenuBar = ({ value, toolbar = {}, readOnly, editor }) => {
     }
   }, [editor]);
 
-  useEffect(() => {
-    editor.chain().focus().toggleHeading({ level: 1 }).run();
-  }, []);
+  // useEffect(() => {
+  //   editor.chain().focus().toggleHeading({ level: 1 }).run();
+  // }, []);
 
   return (
     <div

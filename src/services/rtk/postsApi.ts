@@ -70,6 +70,18 @@ export const postsApi = createApi({
         url: `/comment/${id}/replies`,
       }),
     }),
+    deleteComment: builder.mutation({
+      query: (id) => ({
+        url: `/posts/comments/${id}`,
+        method: "DELETE",
+      }),
+    }),
+    deleteReply: builder.mutation({
+      query: (id) => ({
+        url: `/comment/replies/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -87,4 +99,6 @@ export const {
   useLazyGetPostCommentsQuery,
   useReplyToCommentMutation,
   useLazyGetCommentRepliesQuery,
+  useDeleteCommentMutation,
+  useDeleteReplyMutation,
 } = postsApi;

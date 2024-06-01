@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { Descendant } from "slate";
 
-const PostCommentFormContainer = () => {
+const PostCommentFormContainer = ({ onSuccess }) => {
   const router = useRouter();
   const params = useParams();
   console.log("params", params);
@@ -21,7 +21,7 @@ const PostCommentFormContainer = () => {
 
   const handlePostComment = async (data: typeof initialValues) => {
     const payload = {
-      id: params?.id,
+      blogId: params?.id,
       body: {
         content,
       },
@@ -29,6 +29,10 @@ const PostCommentFormContainer = () => {
     const res = await postComment(payload);
     if (isSuccess(res)) {
       toast.success(res?.data?.message);
+
+      if (onSuccess) {
+        onSuccess();
+      }
     }
   };
   return (
@@ -42,8 +46,12 @@ const PostCommentFormContainer = () => {
               setContent(value);
               // setFieldValue("content", value);
             }}
+            withoutForceTitle
+            placeholder="Write your thoughts"
           />
-          <Button className="my-3">Post Comment</Button>
+          <Button className="my-3" isLoading={isLoading}>
+            Post Comment
+          </Button>
         </Form>
       </Formik>
     </div>
