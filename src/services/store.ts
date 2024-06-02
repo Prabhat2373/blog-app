@@ -34,6 +34,7 @@ import { pokemonApi } from "./rtk/testApi";
 import userSlice from "./slices/userSlice";
 import { profileApi } from "./rtk/profileApi";
 import { postsApi } from "./rtk/postsApi";
+import { rtkErrorHandler } from "@/middlewares/rtkErrorHandler";
 
 // presist config
 const persistConfig = {
@@ -51,10 +52,13 @@ export const store = configureStore({
     [profileApi.reducerPath]: profileApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()
+    getDefaultMiddleware({
+      // serializableCheck: false,
+    })
       .concat(pokemonApi.middleware)
       .concat(postsApi.middleware)
       .concat(profileApi.middleware),
+  // .concat(rtkErrorHandler),
 });
 export const persistor = persistStore(store);
 export type AppStore = typeof store;

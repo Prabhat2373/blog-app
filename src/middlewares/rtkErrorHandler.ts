@@ -2,35 +2,13 @@ import { globalRoutes } from "@/config/global.routes";
 import { toast } from "react-toastify";
 import { MiddlewareAPI } from "redux";
 
-/**
- * Log a error and show a toast!
- */
 export const rtkErrorHandler = (api: MiddlewareAPI) => (next) => (action) => {
-  // const router = useRouter()
-
   try {
-    //Handle Validation Errors
-
-    // if (
-    //   !window.location.pathname.includes('offline') &&
-    //   action?.payload?.status == 'FETCH_ERROR'
-    // ) {
-    //   window.location.replace('/offline')
-    // }
     if (action?.payload?.timezone && typeof localStorage != "undefined") {
       localStorage.setItem("timezone", action?.payload?.timezone);
     }
 
-    // if (typeof window === 'undefined') return
-
-    // if (
-    //   window.location.pathname != '/offline' &&
-    //   action.payload?.status === 'FETCH_ERROR'
-    // ) {
-    //   window.location.replace('/offline')
-    //   return false
-    // }
-
+    console.log("actionpayload", action?.payload);
     // Handle Un-Authenticated
     if (
       !globalRoutes.includes(window.location.pathname) &&
@@ -131,6 +109,8 @@ export const rtkErrorHandler = (api: MiddlewareAPI) => (next) => (action) => {
       return next(action);
     }
     return next(action);
-  } catch (e: any) {}
+  } catch (e: any) {
+    console.log("rtk error", e?.message);
+  }
   // return next(action)
 };

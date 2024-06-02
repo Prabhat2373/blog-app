@@ -32,12 +32,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LogoutUser } from "@/services/slices/userSlice";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { RootState } from "@/services/store";
+import { getAcronym } from "@/utils/utils";
 
 const ProfileDropdownMenu = () => {
+  const { user } = useSelector((state: RootState) => state.user);
   const router = useRouter();
   const dispatch = useDispatch();
   const handleLogout = () => {
@@ -48,8 +51,8 @@ const ProfileDropdownMenu = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer">
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage src={user?.avatar} alt="@shadcn" />
+          <AvatarFallback>{getAcronym(user?.name)}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">

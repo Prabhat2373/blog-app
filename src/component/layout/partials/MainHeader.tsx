@@ -27,6 +27,7 @@ import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import ProfileDropdownMenu from "@/component/menus/ProfileDropdownMenu";
 import { useRouter } from "next/navigation";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 // import ProfileDropdownMenu from "../menus/ProfileDropdownMenu";
 
 const MainHeader = () => {
@@ -116,6 +117,7 @@ const MainHeader = () => {
           />
         </div>
       </div>
+      <ThemeToggle />
       <div>
         <Button
           onClick={() => router.push("/posts/create")}
