@@ -46,7 +46,7 @@ const PostDiscussionContainer = () => {
           </div>
           <div
             className={classNames({
-              hidden: !enableCommentForm,
+              // hidden: !enableCommentForm,
             })}
           >
             <PostCommentFormContainer onSuccess={handleOnSuccess} />

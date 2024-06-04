@@ -148,11 +148,11 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
           </Menubar>
         </div>
         <Link href={`/posts/${data?._id}`}>
-          {thumbnailUrl && (
+          {data?.thumbnail && (
             <div className="w-full flex-shrink-0 rounded-md my-4">
               <img
                 className="object-cover h-[200px] w-full rounded-md"
-                src={thumbnailUrl}
+                src={data?.thumbnail}
                 alt="Blog thumbnail"
                 //   width={1920}
                 height={200}

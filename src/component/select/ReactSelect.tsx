@@ -58,9 +58,11 @@ function ReactSelect<
       menuPosition="fixed"
       menuPlacement="auto"
       menuPortalTarget={
-        document.getElementsByClassName(
-          "fixed inset-0 z-50 flex bg-black bg-opacity-50 transition-all duration-100 justify-end"
-        )[0]
+        typeof document !== "undefined"
+          ? document?.getElementsByClassName(
+              "fixed inset-0 z-50 flex bg-black bg-opacity-50 transition-all duration-100 justify-end"
+            )[0]
+          : "fixed inset-0 z-50 flex bg-black bg-opacity-50 transition-all duration-100 justify-end"
       }
       styles={{
         input: (base) => ({

@@ -1,5 +1,8 @@
 "use client";
 import { blogCategories } from "@/__mock__/blogs.categories";
+import Asterisk from "@/component/form/Asterisk";
+import FileDropableInput from "@/component/form/FileDropableInput";
+import InputError from "@/component/form/InputError";
 import InputField from "@/component/inputs/InputField";
 import Modal from "@/component/modals/Modal";
 import ReactSelect from "@/component/select/ReactSelect";
@@ -7,22 +10,15 @@ import RichTextEditor from "@/component/ui/editor/RichTextEditor";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import BlogPostDraftHandler from "@/helpers/form/BlogPostDraftHandler";
-import { FileUploader } from "react-drag-drop-files";
-import {
-  useCreatePostMutation,
-  useSaveDraftsMutation,
-} from "@/services/rtk/postsApi";
+import { useCreatePostMutation } from "@/services/rtk/postsApi";
 import { isSuccess } from "@/utils/utils";
+import { createPostValidation } from "@/validators/posts/posts.validator";
 import { IconBolt, IconClockBolt, IconDeviceFloppy } from "@tabler/icons-react";
-import { ErrorMessage, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { Descendant } from "slate";
-import { createPostValidation } from "@/validators/posts/posts.validator";
-import InputError from "@/component/form/InputError";
-import Asterisk from "@/component/form/Asterisk";
-import FileDropableInput from "@/component/form/FileDropableInput";
 
 const CreateBlogPostFormContainer = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -73,7 +69,12 @@ const CreateBlogPostFormContainer = () => {
 
   return (
     <>
-      <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={"Schedule For Later"}>
+      <Modal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        title={"Schedule For Later"}
+        description={"test"}
+      >
         <div>
           <div>Schedule for later</div>
           <div className="flex justify-end">
