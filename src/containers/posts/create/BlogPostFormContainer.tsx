@@ -20,6 +20,7 @@ import { isSuccess } from "@/utils/utils";
 import { createPostValidation } from "@/validators/posts/posts.validator";
 import { IconBolt, IconClockBolt, IconDeviceFloppy } from "@tabler/icons-react";
 import { Form, Formik } from "formik";
+import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
@@ -69,7 +70,10 @@ const CreateBlogPostFormContainer = ({
     formdata.append("file", thumbnail);
 
     if (mode === BLOG_POST_MODES.EDIT) {
-      const response = await updatePost(formdata);
+      const response = await updatePost({
+        id: postId,
+        body: formdata,
+      });
       console.log("Blog post updated:", response.data);
       handleSuccess(response);
     } else {
@@ -182,6 +186,14 @@ const CreateBlogPostFormContainer = ({
                   <InputError>{errors?.thumbnail}</InputError>
                 ) : null}
               </div>
+              <div>
+                <img
+                  src={postData?.thumbnail}
+                  alt="thumbnail"
+                  width={200}
+                  height={200}
+                />
+              </div>
               <div className="flex gap-3 items-center justify-end">
                 <Button variant={"outline"}>
                   <IconDeviceFloppy /> Save as Draft
@@ -193,7 +205,7 @@ const CreateBlogPostFormContainer = ({
                 >
                   <IconClockBolt /> Schedule For Later
                 </Button>
-                <Button isLoading={isLoading}>
+                <Button isLoading={isLoading || isUpdating}>
                   <IconBolt />{" "}
                   {mode === BLOG_POST_MODES.EDIT ? "Update" : "Publish"}
                 </Button>

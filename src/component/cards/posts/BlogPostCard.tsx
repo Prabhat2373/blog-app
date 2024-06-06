@@ -7,7 +7,12 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-import { Bookmark, BookmarkCheck, Ellipsis } from "lucide-react";
+import {
+  Bookmark,
+  BookmarkCheck,
+  Ellipsis,
+  MoreHorizontal,
+} from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -21,6 +26,13 @@ import {
   extractText,
 } from "@/helpers/app/text.processor";
 import { formatDateTime } from "@/helpers/date.helpers";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface BlogPostCardProps {
   thumbnailUrl?: string;
@@ -151,18 +163,22 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
               </div>
             </Link>
           </div>
-          <Menubar>
-            <MenubarMenu>
-              <MenubarTrigger className="border-none">
-                <Ellipsis />
-              </MenubarTrigger>
-              <MenubarContent>
-                <MenubarItem>Edit</MenubarItem>
-                <MenubarItem>Delete</MenubarItem>
-                <MenubarItem>Report</MenubarItem>
-              </MenubarContent>
-            </MenubarMenu>
-          </Menubar>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button size="icon" variant="ghost" className="h-8 w-8">
+                <MoreHorizontal className="h-3.5 w-3.5" />
+                <span className="sr-only">More</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <Link href={`/posts/edit/${data?._id}`}>
+                <DropdownMenuItem>Edit</DropdownMenuItem>
+              </Link>
+              <DropdownMenuItem>Export</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Trash</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
         <Link href={`/posts/${data?._id}`}>
           {data?.thumbnail && (
