@@ -82,6 +82,13 @@ export const postsApi = createApi({
         method: "DELETE",
       }),
     }),
+    updateBlog: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `/blogs/${id}`,
+        method: "PUT",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -101,4 +108,5 @@ export const {
   useLazyGetCommentRepliesQuery,
   useDeleteCommentMutation,
   useDeleteReplyMutation,
+  useUpdateBlogMutation,
 } = postsApi;

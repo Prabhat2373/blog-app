@@ -15,6 +15,12 @@ import { extractFirstParagraph, getRandomColor } from "@/utils/utils";
 import Link from "next/link";
 import { IconBookmarkFilled, IconBookmarkPlus } from "@tabler/icons-react";
 import WithTooltip from "@/component/ui/WithTooltip";
+import {
+  countWords,
+  estimateReadingTime,
+  extractText,
+} from "@/helpers/app/text.processor";
+import { formatDateTime } from "@/helpers/date.helpers";
 
 interface BlogPostCardProps {
   thumbnailUrl?: string;
@@ -50,6 +56,12 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
 }) => {
   const desc = extractFirstParagraph(data?.content?.content);
   console.log("desc", desc);
+
+  const extractedText = extractText(data?.content?.content);
+
+  const wordCount = countWords(extractedText);
+  const readingTime = estimateReadingTime(wordCount);
+  console.log("readingTime", readingTime);
   return (
     // <div className=" mx-auto bg-white rounded-xl shadow-md overflow-hidden flex">
     <div className="col-span-1 border-b overflow-hidden">
@@ -128,8 +140,13 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
                   </Button>
                 </div>
                 <div className="flex gap-2 items-center text-gray-600">
-                  <p className="text-gray-600 text-xs mt-1">{"17 nov 2024"}</p>•
-                  <p className="text-gray-600 text-xs mt-1">{"10 min read"}</p>
+                  <p className="text-gray-600 text-xs mt-1">
+                    {formatDateTime(data?.createdAt)}
+                  </p>
+                  •
+                  <p className="text-gray-600 text-xs mt-1">
+                    {readingTime} Min Read
+                  </p>
                 </div>
               </div>
             </Link>
@@ -168,7 +185,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
           </div>
         </Link>
         <div className="mt-2 flex items-center space-x-2 text-sm text-gray-500">
-          <span>{readMinutes || 10} min read</span>
+          <span>{readingTime} min read</span>
         </div>
         <div className="mt-4 flex items-center justify-between">
           <div className="flex flex-wrap space-x-2">

@@ -2,7 +2,7 @@ import moment from "moment/moment";
 
 export const formatDateTime = (
   dateTimeString: string | null,
-  format: string = "DD-MM-YYYY hh:mmA"
+  format: string = "DD MMM YYYY"
 ) => {
   //{{ moment(bookingDetail.time, "HH:mm:ss").format("h:mm a") }}
   return dateTimeString
