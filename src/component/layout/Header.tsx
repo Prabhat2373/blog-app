@@ -9,6 +9,7 @@ import { IconBell, IconBellRinging } from "@tabler/icons-react";
 import { Toggle } from "@/components/ui/toggle";
 import { Bold, PlusIcon } from "lucide-react";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import { Separator } from "@/components/ui/separator";
 
 const Header = () => {
   const [state, setState] = useState(false);
@@ -26,8 +27,9 @@ const Header = () => {
 
   return (
     <nav className="bg-white border-b w-full md:static md:text-sm md:border-none">
-      <div className="items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8">
-        <div className="flex items-center justify-between py-3 md:py-5 md:block">
+      <div className="items-center px-4 w-full md:flex ">
+        {/* <div className="flex items-center justify-between py-3 md:py-5 md:block"> */}
+        <div className="flex items-center justify-between  md:block">
           <Link href="/">
             <img
               src="https://www.floatui.com/logo.svg"
@@ -122,6 +124,7 @@ const Header = () => {
           </ul>
         </div>
       </div>
+      <Separator />
     </nav>
   );
 };

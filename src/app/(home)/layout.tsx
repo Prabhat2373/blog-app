@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import Header from "@/component/layout/Header";
 import AppLayout from "@/layouts/AppLayout";
+import { cookies } from "next/headers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,12 +21,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body className={inter.className}>
         <StoreProvider>
           <AppProvider>
-            <AppLayout>{children}</AppLayout>
+            {/* <AppLayout >{children}</AppLayout> */}
+            <AppLayout >{children}</AppLayout>
           </AppProvider>
         </StoreProvider>
       </body>
