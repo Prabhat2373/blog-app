@@ -133,10 +133,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
               className="flex items-start space-x-4"
             >
               <Avatar className="cursor-pointer">
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
+                <AvatarImage src={author?.avatar} alt={author?.name} />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
               <div className="text-sm flex flex-col">
@@ -200,9 +197,9 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
             </p>
           </div>
         </Link>
-        <div className="mt-2 flex items-center space-x-2 text-sm text-gray-500">
+        {/* <div className="mt-2 flex items-center space-x-2 text-sm text-gray-500">
           <span>{readingTime} min read</span>
-        </div>
+        </div> */}
         <div className="mt-4 flex items-center justify-between">
           <div className="flex flex-wrap space-x-2">
             {tags?.length

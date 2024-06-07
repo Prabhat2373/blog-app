@@ -120,6 +120,7 @@ const MainHeader = () => {
       <ThemeToggle />
       <div>
         <Button
+          size={"icon"}
           onClick={() => router.push("/posts/create")}
           variant={"outline"}
         >

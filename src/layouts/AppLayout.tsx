@@ -12,7 +12,7 @@ const AppLayout = ({ children }) => {
     ? JSON.parse(collapsed.value)
     : false;
   return (
-    <div>
+    <>
       {/* <Header />
       {children} */}
       {/* <MainLayout>{children}</MainLayout> */}
@@ -25,7 +25,7 @@ const AppLayout = ({ children }) => {
       >
         {children}
       </ResizeableLayout>
-    </div>
+    </>
   );
 };
 

@@ -1,24 +1,34 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import React, { useEffect } from "react";
-import ProfileTabContainer from "./tabs/ProfileTabContainer";
+// import ProfileTabContainer from "./tabs/ProfileTabContainer";
 import { Settings } from "lucide-react";
 import { IconSettings } from "@tabler/icons-react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/services/store";
-import { useLazyGetProfileQuery } from "@/services/rtk/profileApi";
+import {
+  useLazyGetAuthorProfileQuery,
+  useLazyGetProfileQuery,
+} from "@/services/rtk/profileApi";
+import ProfileTabContainer from "@/containers/profile/tabs/ProfileTabContainer";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getAcronym } from "@/utils/utils";
+import { useParams } from "next/navigation";
 
-const ProfileIndexContainer = () => {
-  const [getProfile, { data }] = useLazyGetProfileQuery();
-  const { user } = useSelector((state: RootState) => state.user);
+const AuthorProfileContainer = () => {
+  const params = useParams();
+  const id = params?.id;
+  const [getProfile, { data }] = useLazyGetAuthorProfileQuery();
+  const { user: authUser } = useSelector((state: RootState) => state.user);
+  const user = data?.data;
   console.log("user", user);
   console.log("profiledata", data);
 
   useEffect(() => {
-    getProfile("");
-  }, []);
+    if (id) {
+      getProfile(id);
+    }
+  }, [id]);
   return (
     <div>
       <div className="relative flex flex-col w-full min-w-0 mb-6 break-words  bg-clip-border rounded-2xl border-stone-200 bg-light/30 draggable">
@@ -155,4 +165,4 @@ const ProfileIndexContainer = () => {
   );
 };
 
-export default ProfileIndexContainer;
+export default AuthorProfileContainer;

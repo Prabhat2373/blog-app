@@ -24,6 +24,11 @@ export const profileApi = createApi({
         url: "/profile",
       }),
     }),
+    getAuthorProfile: builder.query({
+      query: (id) => ({
+        url: `/author/profile/${id}`,
+      }),
+    }),
   }),
 });
 
@@ -32,4 +37,5 @@ export const {
   useRegisterMutation,
   useLazyGetProfileQuery,
   useGetProfileQuery,
+  useLazyGetAuthorProfileQuery
 } = profileApi;
