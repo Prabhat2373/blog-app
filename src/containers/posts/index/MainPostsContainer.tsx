@@ -14,6 +14,7 @@ import { useGetAllPostsQuery } from "@/services/rtk/postsApi";
 import Link from "next/link";
 import React from "react";
 import HomeAsideContainer from "./aside/HomeAsideContainer";
+import EmptyState from "@/component/app/EmptyState";
 
 const MainPostsContainer = () => {
   const { data } = useGetAllPostsQuery("");
@@ -33,23 +34,25 @@ const MainPostsContainer = () => {
               <TabContent>
                 <TabPane id="account">
                   <div className="grid grid-cols-1 gap-4">
-                    {data?.data?.map((blog, index) => {
-                      return (
-                        <>
-                          {/* <Link href={`/posts/${blog?._id}`}>{blog?.title}</Link> */}
-                          {/* <PostListingCard data={blog} /> */}
-                          <BlogPostCard
-                            {...blog}
-                            title={blog?.title}
-                            thumbnailUrl={
-                              index % 2 !== 0
-                                ? "https://images.unsplash.com/photo-1716386480038-1e375da14e1a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8"
-                                : undefined
-                            }
-                          />
-                        </>
-                      );
-                    })}
+                    <EmptyState data={data?.data} title="No Posts To Display!">
+                      {data?.data?.map((blog, index) => {
+                        return (
+                          <>
+                            {/* <Link href={`/posts/${blog?._id}`}>{blog?.title}</Link> */}
+                            {/* <PostListingCard data={blog} /> */}
+                            <BlogPostCard
+                              {...blog}
+                              title={blog?.title}
+                              thumbnailUrl={
+                                index % 2 !== 0
+                                  ? "https://images.unsplash.com/photo-1716386480038-1e375da14e1a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8"
+                                  : undefined
+                              }
+                            />
+                          </>
+                        );
+                      })}
+                    </EmptyState>
                   </div>
                 </TabPane>
                 <TabPane id="password">

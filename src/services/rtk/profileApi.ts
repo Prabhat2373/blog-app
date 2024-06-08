@@ -41,6 +41,11 @@ export const profileApi = createApi({
         method: "POST",
       }),
     }),
+    getAllAuthors: builder.query({
+      query: () => ({
+        url: `/authors/all`,
+      }),
+    }),
   }),
 });
 
@@ -52,4 +57,6 @@ export const {
   useLazyGetAuthorProfileQuery,
   useFollowUserMutation,
   useUnfollowUserMutation,
+  useLazyGetAllAuthorsQuery,
+  useGetAllAuthorsQuery,
 } = profileApi;
