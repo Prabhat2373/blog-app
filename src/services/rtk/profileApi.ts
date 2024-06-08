@@ -29,6 +29,18 @@ export const profileApi = createApi({
         url: `/author/profile/${id}`,
       }),
     }),
+    followUser: builder.mutation({
+      query: (author) => ({
+        url: `/follow/${author}`,
+        method: "POST",
+      }),
+    }),
+    unfollowUser: builder.mutation({
+      query: (author) => ({
+        url: `/unfollow/${author}`,
+        method: "POST",
+      }),
+    }),
   }),
 });
 
@@ -37,5 +49,7 @@ export const {
   useRegisterMutation,
   useLazyGetProfileQuery,
   useGetProfileQuery,
-  useLazyGetAuthorProfileQuery
+  useLazyGetAuthorProfileQuery,
+  useFollowUserMutation,
+  useUnfollowUserMutation,
 } = profileApi;

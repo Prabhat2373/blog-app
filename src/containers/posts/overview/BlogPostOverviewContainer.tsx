@@ -75,7 +75,8 @@ const content = {
 };
 
 const BlogPostOverviewContainer = () => {
-  const [getPost, { data }] = useLazyGetPostOverviewQuery();
+  const [getPost, { data: postData }] = useLazyGetPostOverviewQuery();
+  const data = postData?.data;
   const router = useRouter();
   const params = useParams();
   const postId = params?.id;
@@ -84,12 +85,12 @@ const BlogPostOverviewContainer = () => {
     getPost(postId);
   }, [postId]);
 
-  
   return (
     <>
       <Container>
-      
-        {data?.content ? <BlogPost content={data?.content} meta={data}/> : null}
+        {data?.content ? (
+          <BlogPost content={data?.content} meta={data} />
+        ) : null}
       </Container>
     </>
   );

@@ -10,6 +10,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { buttonVariants } from "@/components/ui/button";
+import { useParams, usePathname } from "next/navigation";
 // import { buttonVariants } from "@/registry/default/ui/button"
 // import {
 //   Tooltip,
@@ -29,6 +30,12 @@ interface NavProps {
 }
 
 export function Nav({ links, isCollapsed }: NavProps) {
+  const params = useParams();
+  const pathname = usePathname();
+
+  const activeLink = links?.find((link) => link?.href?.includes(pathname));
+  console.log("activeLink", activeLink);
+
   return (
     <div
       data-collapsed={isCollapsed}
@@ -42,9 +49,13 @@ export function Nav({ links, isCollapsed }: NavProps) {
                 <Link
                   href={link.href}
                   className={cn(
-                    buttonVariants({ variant: link.variant, size: "icon" }),
+                    buttonVariants({
+                      variant:
+                        activeLink?.href === link.href ? "default" : "ghost",
+                      size: "icon",
+                    }),
                     "h-9 w-9",
-                    link.variant === "default" &&
+                    activeLink?.href === link.href &&
                       "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
                   )}
                 >
@@ -66,8 +77,11 @@ export function Nav({ links, isCollapsed }: NavProps) {
               key={index}
               href={link.href}
               className={cn(
-                buttonVariants({ variant: link.variant, size: "sm" }),
-                link.variant === "default" &&
+                buttonVariants({
+                  variant: activeLink?.href === link.href ? "default" : "ghost",
+                  size: "sm",
+                }),
+                activeLink?.href !== link.href &&
                   "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
                 "justify-start"
               )}

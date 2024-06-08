@@ -33,6 +33,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useSelector } from "react-redux";
+import { RootState } from "@/services/store";
+import FollowButtonLink from "./FollowButtonLink";
 
 interface BlogPostCardProps {
   thumbnailUrl?: string;
@@ -66,6 +69,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
   author,
   ...data
 }) => {
+  const { user } = useSelector((state: RootState) => state.user);
   const desc = extractFirstParagraph(data?.content?.content);
   console.log("desc", desc);
 
@@ -74,58 +78,10 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
   const wordCount = countWords(extractedText);
   const readingTime = estimateReadingTime(wordCount);
   console.log("readingTime", readingTime);
+
   return (
-    // <div className=" mx-auto bg-white rounded-xl shadow-md overflow-hidden flex">
     <div className="col-span-1 border-b overflow-hidden">
       <div className={`p-4 flex flex-col w-full`}>
-        {/* <div className="flex items-center space-x-4 justify-between">
-          <div className="flex items-start space-x-4">
-            <Link
-              href={`/author/profile/${author?._id}`}
-              className="flex items-start space-x-4"
-            >
-              <Avatar className="cursor-pointer">
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <div className="text-sm">
-                <p className="text-gray-900 leading-none">@{author?.name}</p>
-                <p className="text-gray-600 text-xs mt-1">
-                  {datePosted || "17 nov 2024"}
-                </p>
-              </div>
-            </Link>
-            <Button
-              variant={"link"}
-              onClick={onFollow}
-              // className="ml-auto bg-blue-500 text-white text-xs px-3 py-1 rounded-full hover:bg-blue-600 transition-colors"
-              className="m-0 p-0 h-4 text-primary"
-            >
-              Follow
-            </Button>
-          </div>
-          <Menubar>
-            <MenubarMenu>
-              <MenubarTrigger className="border-none">
-                <Ellipsis />
-              </MenubarTrigger>
-              <MenubarContent>
-                <MenubarItem onClick={() => onMenuSelect("edit")}>
-                  Edit
-                </MenubarItem>
-                <MenubarItem onClick={() => onMenuSelect("delete")}>
-                  Delete
-                </MenubarItem>
-                <MenubarItem onClick={() => onMenuSelect("report")}>
-                  Report
-                </MenubarItem>
-              </MenubarContent>
-            </MenubarMenu>
-          </Menubar>
-        </div> */}
         <div className="flex items-center space-x-4 justify-between pb-2">
           <div className="flex items-start space-x-4">
             <Link
@@ -139,14 +95,8 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
               <div className="text-sm flex flex-col">
                 <div className="flex gap-2 items-center">
                   <p className="text-gray-900 leading-none">@{author?.name}</p>
-                  <Button
-                    variant={"link"}
-                    // onClick={onFollow}
-                    // className="ml-auto bg-blue-500 text-white text-xs px-3 py-1 rounded-full hover:bg-blue-600 transition-colors"
-                    className="m-0 p-0 h-4 text-primary"
-                  >
-                    Follow
-                  </Button>
+
+                  <FollowButtonLink author={author} />
                 </div>
                 <div className="flex gap-2 items-center text-gray-600">
                   <p className="text-gray-600 text-xs mt-1">

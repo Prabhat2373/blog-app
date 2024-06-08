@@ -197,7 +197,7 @@ export const ToC = ({ items = [], editor }) => {
       const pos = editor.view.posAtDOM(element, 0);
 
       const tr = editor.view.state.tr;
-      tr.setSelection(new TextSelection(tr.doc.resolve(pos)));
+      tr?.setSelection(new TextSelection(tr?.doc?.resolve(pos)));
 
       editor.view.dispatch(tr);
       editor.view.focus();
