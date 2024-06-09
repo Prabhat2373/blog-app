@@ -139,7 +139,7 @@ const BlogPost = ({ content, meta }) => {
           <div className="flex items-center space-x-4 justify-between m-3 border-b pb-4">
             <div className="flex items-start space-x-4">
               <Link
-                href={`/author/profile/${author?._id}`}
+                href={`/authors/profile/${author?._id}`}
                 className="flex items-start space-x-4"
               >
                 <Avatar className="cursor-pointer">

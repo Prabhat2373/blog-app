@@ -77,7 +77,7 @@ export function TabLinks(props: TabLinksProps): JSX.Element {
         {
           "justify-between space-x-3": fill && !vertical,
           flex: !vertical,
-          "w-full lg:block flex": vertical,
+          " lg:block flex ": vertical,
         },
         props.className
       )}
@@ -122,6 +122,7 @@ export function TabLink(props: TabLinkProps): JSX.Element {
           "text-primary border-b-2 border-primary ": isActive && !vertical,
           "text-primary bg-primary-tab dark:bg-background-opacity border-primary px-3 lg:border-r-2 lg:border-b-0 border-b-2":
             isActive && vertical,
+          "px-4": vertical,
         },
         props.className
       )}

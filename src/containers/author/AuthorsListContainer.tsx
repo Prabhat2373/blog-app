@@ -16,7 +16,7 @@ const AuthorsListContainer = () => {
   return (
     <div>
       <Container className="mt-5">
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 gap-4">
           <EmptyState data={authors?.data}>
             {authors?.data?.map((author) => {
               return <AuthorListCard author={author} />;

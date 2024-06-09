@@ -25,21 +25,22 @@
 
 // setupListeners(store.dispatch);
 
-import { configureStore } from "@reduxjs/toolkit";
-import storage from "redux-persist/lib/storage";
-import { persistStore, persistReducer } from "redux-persist";
+import { configureStore } from '@reduxjs/toolkit';
+import storage from 'redux-persist/lib/storage';
+import { persistStore, persistReducer } from 'redux-persist';
 
-import { setupListeners } from "@reduxjs/toolkit/query";
-import { pokemonApi } from "./rtk/testApi";
-import userSlice from "./slices/userSlice";
-import { profileApi } from "./rtk/profileApi";
-import { postsApi } from "./rtk/postsApi";
-import { rtkErrorHandler } from "@/middlewares/rtkErrorHandler";
+import { setupListeners } from '@reduxjs/toolkit/query';
+import { pokemonApi } from './rtk/testApi';
+import userSlice from './slices/userSlice';
+import { profileApi } from './rtk/profileApi';
+import { postsApi } from './rtk/postsApi';
+import { rtkErrorHandler } from '@/middlewares/rtkErrorHandler';
+import { authorApi } from './rtk/authorApi';
 
 // presist config
 const persistConfig = {
-  key: "root",
-  storage,
+  key: 'root',
+  storage
 };
 
 const userReducer = persistReducer(persistConfig, userSlice);
@@ -50,18 +51,17 @@ export const store = configureStore({
     [pokemonApi.reducerPath]: pokemonApi.reducer,
     [postsApi.reducerPath]: postsApi.reducer,
     [profileApi.reducerPath]: profileApi.reducer,
+    [authorApi.reducerPath]: authorApi.reducer
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      // serializableCheck: false,
-    })
+    getDefaultMiddleware({})
       .concat(pokemonApi.middleware)
       .concat(postsApi.middleware)
-      .concat(profileApi.middleware),
-  // .concat(rtkErrorHandler),
+      .concat(authorApi.middleware)
+      .concat(profileApi.middleware)
 });
 export const persistor = persistStore(store);
 export type AppStore = typeof store;
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<AppStore["getState"]>;
+export type RootState = ReturnType<AppStore['getState']>;
 setupListeners(store.dispatch);

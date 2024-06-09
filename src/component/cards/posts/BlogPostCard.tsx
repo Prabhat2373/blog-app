@@ -85,7 +85,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
         <div className="flex items-center space-x-4 justify-between pb-2">
           <div className="flex items-start space-x-4">
             <Link
-              href={`/author/profile/${author?._id}`}
+              href={`/authors/profile/${author?._id}`}
               className="flex items-start space-x-4"
             >
               <Avatar className="cursor-pointer">

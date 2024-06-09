@@ -14,6 +14,7 @@ import ProfileTabContainer from "@/containers/profile/tabs/ProfileTabContainer";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getAcronym } from "@/utils/utils";
 import { useParams } from "next/navigation";
+import AuthorProfileTabContainer from "./tabs/AuthorProfileTabContainer";
 
 const AuthorProfileContainer = () => {
   const params = useParams();
@@ -158,7 +159,8 @@ const AuthorProfileContainer = () => {
             </div>
           </div>
           <hr className="w-full h-px border-neutral-200" />
-          <ProfileTabContainer />
+          {/* <ProfileTabContainer /> */}
+          <AuthorProfileTabContainer />
         </div>
       </div>
     </div>

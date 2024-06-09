@@ -12,7 +12,8 @@ import { getAcronym } from "@/utils/utils";
 
 const ProfileIndexContainer = () => {
   const [getProfile, { data }] = useLazyGetProfileQuery();
-  const { user } = useSelector((state: RootState) => state.user);
+  // const { user } = useSelector((state: RootState) => state.user);
+  const user = data?.data;
   console.log("user", user);
   console.log("profiledata", data);
 
