@@ -1,25 +1,22 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { formatDateTime } from "@/helpers/date.helpers";
-import { MoreHorizontal } from "lucide-react";
-import Link from "next/link";
-import FollowButtonLink from "../cards/posts/FollowButtonLink";
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
+import { formatDateTime } from '@/helpers/date.helpers';
+import { MoreHorizontal } from 'lucide-react';
+import Link from 'next/link';
+import FollowButtonLink from '../cards/posts/utils/FollowButtonLink';
 
 const AuthorListCard = ({ author }) => {
   return (
     <div className="flex items-center space-x-4 justify-between pb-2 border p-2 rounded-md">
       <div className="flex items-start space-x-4">
-        <Link
-          href={`/authors/profile/${author?._id}`}
-          className="flex items-center space-x-4"
-        >
+        <Link href={`/authors/profile/${author?._id}`} className="flex items-center space-x-4">
           <Avatar className="cursor-pointer">
             <AvatarImage src={author?.avatar} alt={author?.name} />
             <AvatarFallback>CN</AvatarFallback>

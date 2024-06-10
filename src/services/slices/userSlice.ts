@@ -1,17 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-export interface UserType {
-  user: any;
-  avatar: Avatar;
-  role: string;
-  _id: string;
-  name: string;
-  email: string;
-  password: string;
-  createdAt: string;
-
-  user_account: any;
-}
+import { User } from '@/types/profile/profile.types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface Avatar {
   public_id: string;
@@ -21,14 +9,14 @@ export interface Avatar {
 const initialState = {
   isLoggedIn: false,
   user: {},
-  role: "",
+  role: ''
 };
 
 export const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
-    LoginUser: (state, action: PayloadAction<UserType>) => {
+    LoginUser: (state, action: PayloadAction<User>) => {
       state.isLoggedIn = true;
       state.user = action.payload;
       state.role = action.payload?.role;
@@ -36,14 +24,14 @@ export const userSlice = createSlice({
     LogoutUser: (state) => {
       state.isLoggedIn = false;
       state.user = [];
-      state.role = "";
+      state.role = '';
     },
-    setStoreUser: (state, action: PayloadAction<UserType>) => {
+    setStoreUser: (state, action: PayloadAction<User>) => {
       const user = action.payload;
-      console.log("userInSlice", user);
+      console.log('userInSlice', user);
       state.user = user;
-    },
-  },
+    }
+  }
 });
 
 export const { LogoutUser, LoginUser, setStoreUser } = userSlice.actions;

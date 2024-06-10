@@ -1,41 +1,33 @@
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
 import {
   Menubar,
   MenubarContent,
   MenubarItem,
   MenubarMenu,
-  MenubarTrigger,
-} from "@/components/ui/menubar";
-import {
-  Bookmark,
-  BookmarkCheck,
-  Ellipsis,
-  MoreHorizontal,
-} from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { extractFirstParagraph, getRandomColor } from "@/utils/utils";
-import Link from "next/link";
-import { IconBookmarkFilled, IconBookmarkPlus } from "@tabler/icons-react";
-import WithTooltip from "@/component/ui/WithTooltip";
-import {
-  countWords,
-  estimateReadingTime,
-  extractText,
-} from "@/helpers/app/text.processor";
-import { formatDateTime } from "@/helpers/date.helpers";
+  MenubarTrigger
+} from '@/components/ui/menubar';
+import { Bookmark, BookmarkCheck, Ellipsis, MoreHorizontal } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { extractFirstParagraph, getRandomColor } from '@/utils/utils';
+import Link from 'next/link';
+import { IconBookmarkFilled, IconBookmarkPlus } from '@tabler/icons-react';
+import WithTooltip from '@/component/ui/WithTooltip';
+import { countWords, estimateReadingTime, extractText } from '@/helpers/app/text.processor';
+import { formatDateTime } from '@/helpers/date.helpers';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useSelector } from "react-redux";
-import { RootState } from "@/services/store";
-import FollowButtonLink from "./FollowButtonLink";
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/services/store';
+import FollowButtonLink from './utils/FollowButtonLink';
+import SavePostLink from './utils/SavePostLink';
 
 interface BlogPostCardProps {
   thumbnailUrl?: string;
@@ -46,7 +38,6 @@ interface BlogPostCardProps {
   description: string;
   tags: string[];
   readMinutes: number;
-  isSaved: boolean;
   onFollow: () => void;
   onSave: () => void;
   onMenuSelect: (option: string) => void;
@@ -62,7 +53,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
   description,
   tags,
   readMinutes,
-  isSaved,
+
   onFollow,
   onSave,
   onMenuSelect,
@@ -71,23 +62,20 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
 }) => {
   const { user } = useSelector((state: RootState) => state.user);
   const desc = extractFirstParagraph(data?.content?.content);
-  console.log("desc", desc);
+  console.log('desc', desc);
 
   const extractedText = extractText(data?.content?.content);
 
   const wordCount = countWords(extractedText);
   const readingTime = estimateReadingTime(wordCount);
-  console.log("readingTime", readingTime);
+  console.log('readingTime', readingTime);
 
   return (
     <div className="col-span-1 border-b overflow-hidden">
       <div className={`p-4 flex flex-col w-full`}>
         <div className="flex items-center space-x-4 justify-between pb-2">
           <div className="flex items-start space-x-4">
-            <Link
-              href={`/authors/profile/${author?._id}`}
-              className="flex items-start space-x-4"
-            >
+            <Link href={`/authors/profile/${author?._id}`} className="flex items-start space-x-4">
               <Avatar className="cursor-pointer">
                 <AvatarImage src={author?.avatar} alt={author?.name} />
                 <AvatarFallback>CN</AvatarFallback>
@@ -99,13 +87,8 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
                   <FollowButtonLink author={author} />
                 </div>
                 <div className="flex gap-2 items-center text-gray-600">
-                  <p className="text-gray-600 text-xs mt-1">
-                    {formatDateTime(data?.createdAt)}
-                  </p>
-                  •
-                  <p className="text-gray-600 text-xs mt-1">
-                    {readingTime} Min Read
-                  </p>
+                  <p className="text-gray-600 text-xs mt-1">{formatDateTime(data?.createdAt)}</p>•
+                  <p className="text-gray-600 text-xs mt-1">{readingTime} Min Read</p>
                 </div>
               </div>
             </Link>
@@ -160,19 +143,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
                 ))
               : null}
           </div>
-          <WithTooltip description={"Save To Reading List"}>
-            <button
-              onClick={onSave}
-              className="flex items-center text-gray-500 hover:text-gray-700"
-            >
-              {isSaved ? (
-                <IconBookmarkFilled className="text-blue-500" />
-              ) : (
-                <IconBookmarkPlus />
-              )}
-              {/* <span className="ml-1">{isSaved ? "Saved" : "Save"}</span> */}
-            </button>
-          </WithTooltip>
+          <SavePostLink />
         </div>
       </div>
     </div>

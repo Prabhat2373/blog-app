@@ -1,20 +1,18 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import React, { useEffect } from "react";
+'use client';
+import { Button } from '@/components/ui/button';
+import React, { useEffect } from 'react';
 // import ProfileTabContainer from "./tabs/ProfileTabContainer";
-import { Settings } from "lucide-react";
-import { IconSettings } from "@tabler/icons-react";
-import { useSelector } from "react-redux";
-import { RootState } from "@/services/store";
-import {
-  useLazyGetAuthorProfileQuery,
-  useLazyGetProfileQuery,
-} from "@/services/rtk/profileApi";
-import ProfileTabContainer from "@/containers/profile/tabs/ProfileTabContainer";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { getAcronym } from "@/utils/utils";
-import { useParams } from "next/navigation";
-import AuthorProfileTabContainer from "./tabs/AuthorProfileTabContainer";
+import { Settings } from 'lucide-react';
+import { IconSettings } from '@tabler/icons-react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/services/store';
+import { useLazyGetAuthorProfileQuery, useLazyGetProfileQuery } from '@/services/rtk/profileApi';
+import ProfileTabContainer from '@/containers/profile/tabs/ProfileTabContainer';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { getAcronym } from '@/utils/utils';
+import { useParams } from 'next/navigation';
+import AuthorProfileTabContainer from './tabs/AuthorProfileTabContainer';
+import FollowButtonLink from '@/component/cards/posts/utils/FollowButtonLink';
 
 const AuthorProfileContainer = () => {
   const params = useParams();
@@ -22,8 +20,8 @@ const AuthorProfileContainer = () => {
   const [getProfile, { data }] = useLazyGetAuthorProfileQuery();
   const { user: authUser } = useSelector((state: RootState) => state.user);
   const user = data?.data;
-  console.log("user", user);
-  console.log("profiledata", data);
+  console.log('user', user);
+  console.log('profiledata', data);
 
   useEffect(() => {
     if (id) {
@@ -43,18 +41,14 @@ const AuthorProfileContainer = () => {
                   alt="image"
                 /> */}
                 <Avatar className="cursor-pointer w-[120px] h-[120px]">
-                  <AvatarImage
-                    src={user?.avatar}
-                    alt={`@${user?.name}`}
-                    width={80}
-                  />
+                  <AvatarImage src={user?.avatar} alt={`@${user?.name}`} width={80} />
                   <AvatarFallback>{getAcronym(user?.name)}</AvatarFallback>
                 </Avatar>
                 <div className="group/tooltip relative">
                   <span className="w-[15px] h-[15px] absolute bg-green-500 rounded-full bottom-0 end-0 -mb-1 -mr-2  border border-white"></span>
                   <span className="text-xs absolute z-10 transition-opacity duration-300 ease-in-out px-3 py-2 whitespace-nowrap text-center transform bg-white rounded-2xl shadow-sm bottom-0 -mb-2 start-full ml-4 font-medium text-secondary-inverse group-hover/tooltip:opacity-100 opacity-0 block">
-                    {" "}
-                    Status: Active{" "}
+                    {' '}
+                    Status: Active{' '}
                   </span>
                 </div>
               </div>
@@ -64,11 +58,12 @@ const AuthorProfileContainer = () => {
                 <div className="flex flex-col">
                   <div className="flex items-center mb-2 gap-3">
                     <h1 className="text-secondary-inverse hover:text-primary transition-colors duration-200 ease-in-out font-semibold text-[1.5rem] mr-1">
-                      {user?.name || "-"}
+                      {user?.name || '-'}
                     </h1>
-                    <Button variant={"outline"} className="py-1 h-7">
+                    {/* <Button variant={"outline"} className="py-1 h-7">
                       Follow
-                    </Button>
+                    </Button> */}
+                    <FollowButtonLink author={user} />
                   </div>
                   <div className="flex flex-wrap pr-2 mb-4 font-medium">
                     <a
@@ -88,8 +83,8 @@ const AuthorProfileContainer = () => {
                             clip-rule="evenodd"
                           />
                         </svg>
-                      </span>{" "}
-                      New York, NY{" "}
+                      </span>{' '}
+                      New York, NY{' '}
                     </a>
                     <a
                       className="flex items-center mb-2 mr-5 text-secondary-dark hover:text-primary"
@@ -105,13 +100,13 @@ const AuthorProfileContainer = () => {
                           <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
                           <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
                         </svg>
-                      </span>{" "}
-                      {user?.email || "-"}
+                      </span>{' '}
+                      {user?.email || '-'}
                     </a>
                   </div>
                 </div>
                 <div className="flex flex-wrap my-auto">
-                  <Button variant={"outline"} className="px-2">
+                  <Button variant={'outline'} className="px-2">
                     <IconSettings />
                   </Button>
                   {/* <Button>Follow</Button> */}
@@ -130,14 +125,14 @@ const AuthorProfileContainer = () => {
                     href="javascript:void(0)"
                     className="mr-3 mb-2 inline-flex items-center justify-center text-secondary-inverse rounded-full bg-neutral-100 hover:bg-neutral-200 transition-all duration-200 ease-in-out px-3 py-1 text-sm font-medium leading-normal"
                   >
-                    {" "}
-                    {user?.following?.length || 0} Following{" "}
+                    {' '}
+                    {user?.following?.length || 0} Following{' '}
                   </a>
                   <a
                     href="javascript:void(0)"
                     className="mr-3 mb-2 inline-flex items-center justify-center text-secondary-inverse rounded-full bg-neutral-100 hover:bg-neutral-200 transition-all duration-200 ease-in-out px-3 py-1 text-sm font-medium leading-normal"
                   >
-                    {user?.followers?.length || 0} Followers{" "}
+                    {user?.followers?.length || 0} Followers{' '}
                   </a>
                   <a
                     href="javascript:void(0)"

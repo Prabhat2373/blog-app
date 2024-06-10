@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from 'react';
 import {
   AlertCircle,
   Archive,
@@ -13,101 +13,109 @@ import {
   ShoppingCart,
   Trash2,
   User,
-  Users2,
-} from "lucide-react";
+  Users2
+} from 'lucide-react';
+import { useLazyGetBlogTopicsQuery } from '@/services/rtk/postsApi';
 
 interface Link {
   title: string;
   label?: string;
   icon: LucideIcon;
-  variant: "default" | "ghost";
+  variant: 'default' | 'ghost';
   href: string;
 }
 const useNavLinks = () => {
+  const [getTopics, { data }] = useLazyGetBlogTopicsQuery();
+  console.log('topics', data);
+
+  useEffect(() => {
+    getTopics({});
+  }, []);
+
   const primaryNavLinks: Link[] = [
     {
-      title: "Feed",
-      label: "128",
+      title: 'Feed',
+      label: '128',
       icon: Inbox,
-      variant: "default",
-      href: "/",
+      variant: 'default',
+      href: '/'
     },
     {
-      title: "Authors",
-      label: "9",
+      title: 'Authors',
+      label: '9',
       icon: User,
-      variant: "ghost",
-      href: "/authors",
+      variant: 'ghost',
+      href: '/authors'
     },
     {
-      title: "Sent",
-      label: "",
+      title: 'Sent',
+      label: '',
       icon: Send,
-      variant: "ghost",
-      href: "/bookmarks",
+      variant: 'ghost',
+      href: '/bookmarks'
     },
     {
-      title: "Junk",
-      label: "23",
+      title: 'Junk',
+      label: '23',
       icon: ArchiveX,
-      variant: "ghost",
-      href: "/junk",
+      variant: 'ghost',
+      href: '/junk'
     },
     {
-      title: "Saved",
-      label: "",
+      title: 'Saved',
+      label: '',
       icon: SaveIcon,
-      variant: "ghost",
-      href: "/saved",
+      variant: 'ghost',
+      href: '/saved'
     },
     {
-      title: "Billing",
-      label: "",
+      title: 'Billing',
+      label: '',
       icon: Receipt,
-      variant: "ghost",
-      href: "/billings",
-    },
+      variant: 'ghost',
+      href: '/billings'
+    }
   ];
   const secondaryNavLinks: Link[] = [
     {
-      title: "Social",
-      label: "972",
+      title: 'Social',
+      label: '972',
       icon: Users2,
-      variant: "ghost",
-      href: "/test",
+      variant: 'ghost',
+      href: '/test'
     },
     {
-      title: "Updates",
-      label: "342",
+      title: 'Updates',
+      label: '342',
       icon: AlertCircle,
-      variant: "ghost",
-      href: "/test",
+      variant: 'ghost',
+      href: '/test'
     },
     {
-      title: "Forums",
-      label: "128",
+      title: 'Forums',
+      label: '128',
       icon: MessagesSquare,
-      variant: "ghost",
-      href: "/test",
+      variant: 'ghost',
+      href: '/test'
     },
     {
-      title: "Shopping",
-      label: "8",
+      title: 'Shopping',
+      label: '8',
       icon: ShoppingCart,
-      variant: "ghost",
-      href: "/test",
+      variant: 'ghost',
+      href: '/test'
     },
     {
-      title: "Promotions",
-      label: "21",
+      title: 'Promotions',
+      label: '21',
       icon: Archive,
-      variant: "ghost",
-      href: "/test",
-    },
+      variant: 'ghost',
+      href: '/test'
+    }
   ];
   return {
     primaryNavLinks,
-    secondaryNavLinks,
+    secondaryNavLinks
   };
 };
 
