@@ -11,16 +11,16 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { getAcronym } from '@/utils/utils';
 import FollowButtonLink from '@/components/cards/posts/utils/FollowButtonLink';
 
-const ProfileIndexContainer = () => {
-  const [getProfile, { data }] = useLazyGetProfileQuery();
+const ProfileIndexContainer = ({ data }) => {
+  // const [getProfile, { data }] = useLazyGetProfileQuery();
   // const { user } = useSelector((state: RootState) => state.user);
   const user = data?.data;
   console.log('user', user);
   console.log('profiledata', data);
 
-  useEffect(() => {
-    getProfile('');
-  }, []);
+  // useEffect(() => {
+  //   getProfile('');
+  // }, []);
   return (
     <div>
       <div className="relative flex flex-col w-full min-w-0 mb-6 break-words  bg-clip-border rounded-2xl border-stone-200 bg-light/30 draggable">

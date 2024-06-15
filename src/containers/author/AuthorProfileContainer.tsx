@@ -14,20 +14,20 @@ import { useParams } from 'next/navigation';
 import AuthorProfileTabContainer from './tabs/AuthorProfileTabContainer';
 import FollowButtonLink from '@/components/cards/posts/utils/FollowButtonLink';
 
-const AuthorProfileContainer = () => {
+const AuthorProfileContainer = ({ data }) => {
   const params = useParams();
   const id = params?.id;
-  const [getProfile, { data }] = useLazyGetAuthorProfileQuery();
-  const { user: authUser } = useSelector((state: RootState) => state.user);
+  // const [getProfile, { data }] = useLazyGetAuthorProfileQuery();
+  // const { user: authUser } = useSelector((state: RootState) => state.user);
   const user = data?.data;
   console.log('user', user);
   console.log('profiledata', data);
 
-  useEffect(() => {
-    if (id) {
-      getProfile(id);
-    }
-  }, [id]);
+  // useEffect(() => {
+  //   if (id) {
+  //     getProfile(id);
+  //   }
+  // }, [id]);
   return (
     <div>
       <div className="relative flex flex-col w-full min-w-0 mb-6 break-words  bg-clip-border rounded-2xl border-stone-200 bg-light/30 draggable">
