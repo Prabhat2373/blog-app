@@ -1,12 +1,7 @@
-import Tabs, {
-  TabContent,
-  TabLink,
-  TabLinks,
-  TabPane,
-} from "@/component/ui/Tabs";
-import { useLazyGetAuthorPostsQuery } from "@/services/rtk/authorApi";
-import { useParams } from "next/navigation";
-import React, { useEffect } from "react";
+import Tabs, { TabContent, TabLink, TabLinks, TabPane } from '@/components/ui/Tabs';
+import { useLazyGetAuthorPostsQuery } from '@/services/rtk/authorApi';
+import { useParams } from 'next/navigation';
+import React, { useEffect } from 'react';
 
 const AuthorProfileTabContainer = () => {
   const params = useParams();
@@ -20,7 +15,7 @@ const AuthorProfileTabContainer = () => {
     }
   }, [authorId]);
   return (
-    <Tabs active={"posts"}>
+    <Tabs active={'posts'}>
       <TabLinks>
         <TabLink target="posts">All Post</TabLink>
         <TabLink target="drafts">Drafts</TabLink>

@@ -1,26 +1,20 @@
-"use client";
-import IconGithub from "@/component/icons/app/IconGithub";
-import IconGoogle from "@/component/icons/app/IconGoogle";
-import InputField from "@/component/inputs/InputField";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  useLoginMutation,
-  useRegisterMutation,
-} from "@/services/rtk/profileApi";
-import { LoginUser } from "@/services/slices/userSlice";
-import { isSuccess } from "@/utils/utils";
-import {
-  loginValidator,
-  registerValidation,
-} from "@/validators/auth/auth.validators";
-import { Form, Formik } from "formik";
-import Cookies from "js-cookie";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useMemo } from "react";
-import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
+'use client';
+import IconGithub from '@/components/icons/app/IconGithub';
+import IconGoogle from '@/components/icons/app/IconGoogle';
+import InputField from '@/components/inputs/InputField';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useLoginMutation, useRegisterMutation } from '@/services/rtk/profileApi';
+import { LoginUser } from '@/services/slices/userSlice';
+import { isSuccess } from '@/utils/utils';
+import { loginValidator, registerValidation } from '@/validators/auth/auth.validators';
+import { Form, Formik } from 'formik';
+import Cookies from 'js-cookie';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useMemo } from 'react';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const LoginContainer = () => {
   const router = useRouter();
@@ -29,22 +23,22 @@ const LoginContainer = () => {
   const [register, { isLoading, data }] = useRegisterMutation();
   const initialValues = useMemo(() => {
     return {
-      email: "prabhattambe@gmail.com",
-      password: "1234567890",
+      email: 'prabhattambe@gmail.com',
+      password: '1234567890'
     };
   }, []);
 
   const handleRegister = async (data: typeof initialValues) => {
     const res = await register(data);
-    console.log("response", res);
+    console.log('response', res);
     if (isSuccess(res)) {
-      toast.success(res?.data?.data?.message || "success!");
+      toast.success(res?.data?.data?.message || 'success!');
       const token = res?.data?.token;
 
       if (token) {
-        Cookies.set("token", token);
+        Cookies.set('token', token);
         dispatch(LoginUser(res?.data?.data));
-        router.push("/");
+        router.push('/');
       }
     }
   };
@@ -81,8 +75,8 @@ const LoginContainer = () => {
               </h2>
 
               <p className="mt-4 leading-relaxed text-white/90">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum
+                aliquam, quibusdam aperiam voluptatum.
               </p>
             </div>
           </section>
@@ -113,8 +107,8 @@ const LoginContainer = () => {
                 </h1>
 
                 <p className="mt-4 leading-relaxed text-gray-500">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum
+                  aliquam, quibusdam aperiam voluptatum.
                 </p>
               </div>
               <div className="relative -mt-16  lg:block hidden">
@@ -141,30 +135,26 @@ const LoginContainer = () => {
                 </h1>
 
                 <p className="mt-4 leading-relaxed text-gray-500">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum
+                  aliquam, quibusdam aperiam voluptatum.
                 </p>
               </div>
 
               <div className="flex gap-4">
                 <Button
-                  variant={"outline"}
+                  variant={'outline'}
                   className="w-full"
                   onClick={() => {
-                    router.push(
-                      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`
-                    );
+                    router.push(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`);
                   }}
                 >
                   <IconGoogle />
                 </Button>
                 <Button
-                  variant={"outline"}
+                  variant={'outline'}
                   className="w-full"
                   onClick={() => {
-                    router.push(
-                      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/github`
-                    );
+                    router.push(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/github`);
                   }}
                 >
                   <IconGithub />
@@ -216,8 +206,8 @@ const LoginContainer = () => {
                       />
 
                       <span className="text-sm text-gray-700">
-                        I want to receive emails about events, product updates
-                        and company announcements.
+                        I want to receive emails about events, product updates and company
+                        announcements.
                       </span>
                     </label>
                   </div>
@@ -226,10 +216,10 @@ const LoginContainer = () => {
                     <p className="text-sm text-gray-500">
                       By creating an account, you agree to our
                       <Link href="#" className="text-gray-700 underline">
-                        {" "}
-                        terms and conditions{" "}
+                        {' '}
+                        terms and conditions{' '}
                       </Link>
-                      and{" "}
+                      and{' '}
                       <Link href="#" className="text-gray-700 underline">
                         privacy policy
                       </Link>
@@ -244,10 +234,7 @@ const LoginContainer = () => {
 
                     <p className="mt-4 text-sm text-gray-500 sm:mt-0">
                       {`Already have an account? `}
-                      <Link
-                        href="/auth/login"
-                        className="text-gray-700 underline"
-                      >
+                      <Link href="/auth/login" className="text-gray-700 underline">
                         Login
                       </Link>
                     </p>

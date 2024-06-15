@@ -1,12 +1,12 @@
-import PostListingCard from "@/component/cards/posts/PostListingCard";
-import { useLazyGetSavedDraftsQuery } from "@/services/rtk/postsApi";
-import React, { useEffect } from "react";
+import PostListingCard from '@/components/cards/posts/PostListingCard';
+import { useLazyGetSavedDraftsQuery } from '@/services/rtk/postsApi';
+import React, { useEffect } from 'react';
 
 const ProfileDraftsContainer = () => {
   const [getDrafts, { data }] = useLazyGetSavedDraftsQuery();
 
   useEffect(() => {
-    getDrafts("");
+    getDrafts('');
   }, []);
   return (
     <div>

@@ -8,36 +8,33 @@
 
 // export default CommentReplyFormContainer
 
-import RichTextEditor from "@/component/ui/editor/RichTextEditor";
-import { Button } from "@/components/ui/button";
-import {
-  useCommentOnPostMutation,
-  useReplyToCommentMutation,
-} from "@/services/rtk/postsApi";
-import { isSuccess } from "@/utils/utils";
-import { Form, Formik } from "formik";
-import { useParams, useRouter } from "next/navigation";
-import React, { useState } from "react";
-import { toast } from "react-toastify";
-import { Descendant } from "slate";
+import RichTextEditor from '@/components/ui/editor/RichTextEditor';
+import { Button } from '@/components/ui/button';
+import { useCommentOnPostMutation, useReplyToCommentMutation } from '@/services/rtk/postsApi';
+import { isSuccess } from '@/utils/utils';
+import { Form, Formik } from 'formik';
+import { useParams, useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import { Descendant } from 'slate';
 
 const CommentReplyFormContainer = ({ comment, onSuccess }) => {
   const router = useRouter();
   const params = useParams();
-  console.log("params", params);
+  console.log('params', params);
   const [replay, { isLoading }] = useReplyToCommentMutation();
   const [content, setContent] = useState<Descendant[]>([]);
 
   const initialValues = {
-    content: "",
+    content: ''
   };
 
   const handleReplyComment = async (data: typeof initialValues) => {
     const payload = {
       id: comment?._id,
       body: {
-        content,
-      },
+        content
+      }
     };
     const res = await replay(payload);
     if (isSuccess(res)) {
@@ -58,11 +55,7 @@ const CommentReplyFormContainer = ({ comment, onSuccess }) => {
                 // setFieldValue("content", value);
               }}
             />
-            <Button
-              className="my-3"
-              loadingText="Posting.."
-              isLoading={isLoading}
-            >
+            <Button className="my-3" loadingText="Posting.." isLoading={isLoading}>
               Post Reply
             </Button>
           </Form>

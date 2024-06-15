@@ -1,4 +1,4 @@
-import Tabs, { TabContent, TabLink, TabLinks, TabPane } from '@/component/ui/Tabs';
+import Tabs, { TabContent, TabLink, TabLinks, TabPane } from '@/components/ui/Tabs';
 import ProfileDraftsContainer from './posts/ProfileDraftsContainer';
 import useProfileTabLinks from '@/hooks/profile/useProfileTabLinks';
 import React from 'react';

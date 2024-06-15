@@ -1,4 +1,4 @@
-import WithTooltip from '@/component/ui/WithTooltip';
+import WithTooltip from '@/components/ui/WithTooltip';
 import { RootState } from '@/services/store';
 import { Post } from '@/types/posts/posts.types';
 import { IconBookmarkFilled, IconBookmarkPlus } from '@tabler/icons-react';
@@ -11,7 +11,7 @@ interface ISavePostLink {
 
 const SavePostLink = ({ post }: ISavePostLink) => {
   const { user } = useSelector((state: RootState) => state.user);
-  
+
   const [isSaved, setIsSaved] = useState(false);
 
   const toggleSavePost = () => {};

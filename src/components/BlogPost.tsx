@@ -36,54 +36,54 @@
 // };
 
 // export default BlogPost;
-import React from "react";
+import React from 'react';
 
-import RichTextEditor from "@/component/ui/editor/RichTextEditor";
+import RichTextEditor from '@/components/ui/editor/RichTextEditor';
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   Menubar,
   MenubarContent,
   MenubarItem,
   MenubarMenu,
-  MenubarTrigger,
-} from "@/components/ui/menubar";
-import { Ellipsis } from "lucide-react";
-import Link from "next/link";
-import WithTooltip from "./ui/WithTooltip";
+  MenubarTrigger
+} from '@/components/ui/menubar';
+import { Ellipsis } from 'lucide-react';
+import Link from 'next/link';
+import WithTooltip from './ui/WithTooltip';
 
-import PostDiscussionContainer from "@/containers/posts/overview/discussion/PostDiscussionContainer";
+import PostDiscussionContainer from '@/containers/posts/overview/discussion/PostDiscussionContainer';
 
 const BlogPost = ({ content, meta }) => {
   const renderContent = (node) => {
     switch (node.type) {
-      case "heading":
+      case 'heading':
         return React.createElement(
           `h${node.attrs?.level}`,
           { style: { textAlign: node.attrs?.textAlign } },
           node.content?.map((child, index) => renderContent(child))
         );
-      case "paragraph":
+      case 'paragraph':
         return (
           <p style={{ textAlign: node.attrs?.textAlign }}>
             {node.content?.map((child, index) => renderContent(child))}
           </p>
         );
-      case "text":
+      case 'text':
         let textElement = node.text;
         node.marks?.forEach((mark) => {
           switch (mark.type) {
-            case "bold":
+            case 'bold':
               textElement = <b key={node.text}>{textElement}</b>;
               break;
-            case "highlight":
+            case 'highlight':
               textElement = <mark key={node.text}>{textElement}</mark>;
               break;
-            case "code":
+            case 'code':
               textElement = <code key={node.text}>{textElement}</code>;
               break;
-            case "textStyle":
+            case 'textStyle':
               textElement = (
                 <span key={node.text} style={{ color: mark?.attrs?.color }}>
                   {textElement}
@@ -95,24 +95,24 @@ const BlogPost = ({ content, meta }) => {
           }
         });
         return textElement;
-      case "image":
+      case 'image':
         return (
           <img
             src={node.attrs?.src}
-            alt={node.attrs?.alt || ""}
-            title={node.attrs?.title || ""}
+            alt={node.attrs?.alt || ''}
+            title={node.attrs?.title || ''}
             style={{
-              width: node.attrs?.width || "auto",
-              height: node.attrs?.height || "auto",
-              cursor: node.attrs?.cursor || "auto",
-              justifyContent: node.attrs?.justifyContent || "auto",
+              width: node.attrs?.width || 'auto',
+              height: node.attrs?.height || 'auto',
+              cursor: node.attrs?.cursor || 'auto',
+              justifyContent: node.attrs?.justifyContent || 'auto',
               ...(node.attrs?.style
-                ? node.attrs.style.split(";").reduce((acc, style) => {
-                    const [key, value] = style.split(":");
+                ? node.attrs.style.split(';').reduce((acc, style) => {
+                    const [key, value] = style.split(':');
                     acc[key.trim()] = value?.trim();
                     return acc;
                   }, {})
-                : {}),
+                : {})
             }}
             draggable={node.attrs?.draggable}
           />
@@ -123,7 +123,7 @@ const BlogPost = ({ content, meta }) => {
   };
 
   const author = meta?.author;
-  console.log("author", author);
+  console.log('author', author);
   return (
     <div>
       {/* {content.content?.map((node, index) => (
@@ -138,24 +138,16 @@ const BlogPost = ({ content, meta }) => {
         children={
           <div className="flex items-center space-x-4 justify-between m-3 border-b pb-4">
             <div className="flex items-start space-x-4">
-              <Link
-                href={`/authors/profile/${author?._id}`}
-                className="flex items-start space-x-4"
-              >
+              <Link href={`/authors/profile/${author?._id}`} className="flex items-start space-x-4">
                 <Avatar className="cursor-pointer">
-                  <AvatarImage
-                    src="https://github.com/shadcn.png"
-                    alt="@shadcn"
-                  />
+                  <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                 <div className="text-sm flex flex-col">
                   <div className="flex gap-2 items-center">
-                    <p className="text-gray-900 leading-none">
-                      @{author?.name}
-                    </p>
+                    <p className="text-gray-900 leading-none">@{author?.name}</p>
                     <Button
-                      variant={"link"}
+                      variant={'link'}
                       // onClick={onFollow}
                       // className="ml-auto bg-blue-500 text-white text-xs px-3 py-1 rounded-full hover:bg-blue-600 transition-colors"
                       className="m-0 p-0 h-4 text-primary"
@@ -164,18 +156,13 @@ const BlogPost = ({ content, meta }) => {
                     </Button>
                   </div>
                   <div className="flex gap-2 items-center text-gray-600">
-                    <p className="text-gray-600 text-xs mt-1">
-                      {"17 nov 2024"}
-                    </p>
-                    •
-                    <p className="text-gray-600 text-xs mt-1">
-                      {"10 min read"}
-                    </p>
+                    <p className="text-gray-600 text-xs mt-1">{'17 nov 2024'}</p>•
+                    <p className="text-gray-600 text-xs mt-1">{'10 min read'}</p>
                   </div>
                 </div>
               </Link>
             </div>
-            <WithTooltip description={"More Options"}>
+            <WithTooltip description={'More Options'}>
               <Menubar>
                 <MenubarMenu>
                   <MenubarTrigger className="border-none">
@@ -191,7 +178,7 @@ const BlogPost = ({ content, meta }) => {
             </WithTooltip>
           </div>
         }
-        onChange={(cont) => console.log("changed", cont)}
+        onChange={(cont) => console.log('changed', cont)}
       />
       <PostDiscussionContainer />
     </div>

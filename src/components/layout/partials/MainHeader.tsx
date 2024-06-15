@@ -1,5 +1,5 @@
-"use client";
-import React from "react";
+'use client';
+import React from 'react';
 import {
   Bell,
   Home,
@@ -10,24 +10,18 @@ import {
   Plus,
   Search,
   ShoppingCart,
-  Users,
-} from "lucide-react";
-import Link from "next/link";
+  Users
+} from 'lucide-react';
+import Link from 'next/link';
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import ProfileDropdownMenu from "@/component/menus/ProfileDropdownMenu";
-import { useRouter } from "next/navigation";
-import ThemeToggle from "@/components/ui/ThemeToggle";
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import ProfileDropdownMenu from '@/components/menus/ProfileDropdownMenu';
+import { useRouter } from 'next/navigation';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 // import ProfileDropdownMenu from "../menus/ProfileDropdownMenu";
 
 const MainHeader = () => {
@@ -43,10 +37,7 @@ const MainHeader = () => {
         </SheetTrigger>
         <SheetContent side="left" className="flex flex-col">
           <nav className="grid gap-2 text-lg font-medium">
-            <Link
-              href="#"
-              className="flex items-center gap-2 text-lg font-semibold"
-            >
+            <Link href="#" className="flex items-center gap-2 text-lg font-semibold">
               <Package2 className="h-6 w-6" />
               <span className="sr-only">Acme Inc</span>
             </Link>
@@ -94,8 +85,7 @@ const MainHeader = () => {
               <CardHeader>
                 <CardTitle>Upgrade to Pro</CardTitle>
                 <CardDescription>
-                  Unlock all features and get unlimited access to our support
-                  team.
+                  Unlock all features and get unlimited access to our support team.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -119,11 +109,7 @@ const MainHeader = () => {
       </div>
       <ThemeToggle />
       <div>
-        <Button
-          size={"icon"}
-          onClick={() => router.push("/posts/create")}
-          variant={"outline"}
-        >
+        <Button size={'icon'} onClick={() => router.push('/posts/create')} variant={'outline'}>
           <Plus />
         </Button>
       </div>

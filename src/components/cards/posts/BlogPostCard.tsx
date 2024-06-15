@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button';
 import { extractFirstParagraph, getRandomColor } from '@/utils/utils';
 import Link from 'next/link';
 import { IconBookmarkFilled, IconBookmarkPlus } from '@tabler/icons-react';
-import WithTooltip from '@/component/ui/WithTooltip';
+import WithTooltip from '@/components/ui/WithTooltip';
 import { countWords, estimateReadingTime, extractText } from '@/helpers/app/text.processor';
 import { formatDateTime } from '@/helpers/date.helpers';
 import {

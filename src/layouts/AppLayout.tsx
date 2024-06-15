@@ -1,6 +1,6 @@
 // import { accounts, mails } from "@/app/mail/components/data";
 import { accounts } from '@/__mock__/mail/data';
-import { ResizeableLayout } from '@/component/layout/ResizeableLayout';
+import { ResizeableLayout } from '@/components/layout/ResizeableLayout';
 import { cookies } from 'next/headers';
 
 const AppLayout = ({ children }) => {

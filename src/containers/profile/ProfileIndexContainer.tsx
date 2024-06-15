@@ -9,7 +9,7 @@ import { RootState } from '@/services/store';
 import { useLazyGetProfileQuery } from '@/services/rtk/profileApi';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { getAcronym } from '@/utils/utils';
-import FollowButtonLink from '@/component/cards/posts/utils/FollowButtonLink';
+import FollowButtonLink from '@/components/cards/posts/utils/FollowButtonLink';
 
 const ProfileIndexContainer = () => {
   const [getProfile, { data }] = useLazyGetProfileQuery();

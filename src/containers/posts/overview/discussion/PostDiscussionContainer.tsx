@@ -1,17 +1,17 @@
-import BlogCommentCard from "@/component/blog/comments/BlogCommentCard";
-import WithEmptyData from "@/component/ui/WithEmptyData";
-import { Button } from "@/components/ui/button";
-import { useLazyGetPostCommentsQuery } from "@/services/rtk/postsApi";
-import classNames from "classnames";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import PostCommentFormContainer from "../../forms/PostCommentFormContainer";
+import BlogCommentCard from '@/components/blog/comments/BlogCommentCard';
+import WithEmptyData from '@/components/ui/WithEmptyData';
+import { Button } from '@/components/ui/button';
+import { useLazyGetPostCommentsQuery } from '@/services/rtk/postsApi';
+import classNames from 'classnames';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import PostCommentFormContainer from '../../forms/PostCommentFormContainer';
 
 const PostDiscussionContainer = () => {
   const params = useParams();
   const postId = params?.id;
 
-  const [activeCommentId, setActiveCommentId] = useState("");
+  const [activeCommentId, setActiveCommentId] = useState('');
   const [getComments, { data }] = useLazyGetPostCommentsQuery();
   const [enableCommentForm, setEnableCommentForm] = useState(false);
 
@@ -32,9 +32,9 @@ const PostDiscussionContainer = () => {
 
   const comments = data?.data;
 
-  console.log("enableCommentForm", enableCommentForm);
+  console.log('enableCommentForm', enableCommentForm);
 
-  console.log("comments", data);
+  console.log('comments', data);
   return (
     <>
       <section className="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased md:w-2/3">
@@ -53,13 +53,10 @@ const PostDiscussionContainer = () => {
           </div>
           <WithEmptyData
             isEmpty={enableCommentForm && !comments?.length}
-            title={"No Comments Yet!"}
+            title={'No Comments Yet!'}
             actionComponent={
               <>
-                <Button
-                  type="button"
-                  onClick={() => setEnableCommentForm(true)}
-                >
+                <Button type="button" onClick={() => setEnableCommentForm(true)}>
                   Post a Comment!
                 </Button>
               </>

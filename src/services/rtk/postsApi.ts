@@ -18,8 +18,15 @@ export const postsApi = createApi({
       })
     }),
     getAllPosts: builder.query({
-      query: () => ({
-        url: `/blogs`
+      query: (args) => ({
+        url: `/blogs`,
+        params: args
+      })
+    }),
+    getFollowingPosts: builder.query({
+      query: (params) => ({
+        url: `/blogs/following`,
+        params
       })
     }),
     getPostOverview: builder.query({
@@ -115,5 +122,6 @@ export const {
   useDeleteCommentMutation,
   useDeleteReplyMutation,
   useUpdateBlogMutation,
-  useLazyGetBlogTopicsQuery
+  useLazyGetBlogTopicsQuery,
+  useLazyGetFollowingPostsQuery
 } = postsApi;

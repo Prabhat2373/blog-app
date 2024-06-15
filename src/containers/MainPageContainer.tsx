@@ -1,13 +1,13 @@
-"use client";
-import React, { useEffect } from "react";
-import BlogPostForm from "./posts/create/BlogPostFormContainer";
-import BlogPost from "@/component/BlogPost";
-import { useAppSelector } from "@/hooks/useRtkQuery";
-import { RootState } from "@/services/store";
-import { useGetPokemonByNameQuery } from "@/services/rtk/testApi";
-import { useLazyGetPostOverviewQuery } from "@/services/rtk/postsApi";
-import PostListingCard from "@/component/cards/posts/PostListingCard";
-import MainPostsContainer from "./posts/index/MainPostsContainer";
+'use client';
+import React, { useEffect } from 'react';
+import BlogPostForm from './posts/create/BlogPostFormContainer';
+import BlogPost from '@/components/BlogPost';
+import { useAppSelector } from '@/hooks/useRtkQuery';
+import { RootState } from '@/services/store';
+import { useGetPokemonByNameQuery } from '@/services/rtk/testApi';
+import { useLazyGetPostOverviewQuery } from '@/services/rtk/postsApi';
+import PostListingCard from '@/components/cards/posts/PostListingCard';
+import MainPostsContainer from './posts/index/MainPostsContainer';
 // export const content = {
 //   type: "doc",
 //   content: [
@@ -67,7 +67,7 @@ import MainPostsContainer from "./posts/index/MainPostsContainer";
 
 const MainPageContainer = () => {
   const todos = useAppSelector((state: RootState) => state.todos);
-  console.log("todos", todos);
+  console.log('todos', todos);
 
   return (
     <>

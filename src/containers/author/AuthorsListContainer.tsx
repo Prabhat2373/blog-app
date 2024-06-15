@@ -1,18 +1,18 @@
-"use client";
-import EmptyState from "@/component/app/EmptyState";
-import AuthorListCard from "@/component/author/AuthorListCard";
-import Container from "@/component/ui/Container";
-import { useLazyGetAllAuthorsQuery } from "@/services/rtk/profileApi";
-import React, { useEffect } from "react";
+'use client';
+import EmptyState from '@/components/app/EmptyState';
+import AuthorListCard from '@/components/author/AuthorListCard';
+import Container from '@/components/ui/Container';
+import { useLazyGetAllAuthorsQuery } from '@/services/rtk/profileApi';
+import React, { useEffect } from 'react';
 
 const AuthorsListContainer = () => {
   const [getAuthors, { data: authors }] = useLazyGetAllAuthorsQuery();
 
   useEffect(() => {
-    getAuthors("");
+    getAuthors('');
   }, []);
 
-  console.log("authors", authors);
+  console.log('authors', authors);
   return (
     <div>
       <Container className="mt-5">

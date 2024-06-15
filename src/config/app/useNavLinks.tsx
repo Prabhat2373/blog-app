@@ -29,7 +29,7 @@ const useNavLinks = () => {
   console.log('topics', data);
 
   useEffect(() => {
-    getTopics({});
+    getTopics({ limit: 5 });
   }, []);
 
   const primaryNavLinks: Link[] = [

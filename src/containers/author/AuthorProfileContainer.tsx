@@ -12,7 +12,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { getAcronym } from '@/utils/utils';
 import { useParams } from 'next/navigation';
 import AuthorProfileTabContainer from './tabs/AuthorProfileTabContainer';
-import FollowButtonLink from '@/component/cards/posts/utils/FollowButtonLink';
+import FollowButtonLink from '@/components/cards/posts/utils/FollowButtonLink';
 
 const AuthorProfileContainer = () => {
   const params = useParams();

@@ -1,5 +1,5 @@
-import ProfileNotificationsContainer from '@/component/profile/ProfileNotificationsContainer';
-import ProfileSettingsContainer from '@/component/profile/ProfileSettingsContainer';
+import ProfileNotificationsContainer from '@/components/profile/ProfileNotificationsContainer';
+import ProfileSettingsContainer from '@/components/profile/ProfileSettingsContainer';
 import React from 'react';
 
 const useProfileTabLinks = () => {
