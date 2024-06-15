@@ -28,6 +28,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/services/store';
 import FollowButtonLink from './utils/FollowButtonLink';
 import SavePostLink from './utils/SavePostLink';
+import SavePostButton from './utils/SavePostLink';
 
 interface BlogPostCardProps {
   thumbnailUrl?: string;
@@ -143,7 +144,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
                 ))
               : null}
           </div>
-          <SavePostLink />
+          <SavePostButton postId={data?._id} initiallySaved={data?.savedBy?.includes(user?._id)} />
         </div>
       </div>
     </div>

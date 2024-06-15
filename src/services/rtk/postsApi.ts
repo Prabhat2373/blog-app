@@ -101,6 +101,12 @@ export const postsApi = createApi({
         url: `/topics`,
         params: args
       })
+    }),
+    togglePostSave: builder.mutation({
+      query: ({ postId, action }) => ({
+        url: `/blogs/posts/${postId}/${action}`,
+        method: 'PUT'
+      })
     })
   })
 });
@@ -123,5 +129,6 @@ export const {
   useDeleteReplyMutation,
   useUpdateBlogMutation,
   useLazyGetBlogTopicsQuery,
-  useLazyGetFollowingPostsQuery
+  useLazyGetFollowingPostsQuery,
+  useTogglePostSaveMutation
 } = postsApi;
