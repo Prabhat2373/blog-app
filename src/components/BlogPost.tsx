@@ -1,59 +1,9 @@
-// const BlogPost = ({ content }) => {
-//   const renderContent = (node) => {
-//     switch (node.type) {
-//       case "paragraph":
-//         return (
-//           <p style={{ textAlign: node.attrs?.textAlign }}>
-//             {node.content &&
-//               node.content.map((child, index) => renderContent(child))}
-//           </p>
-//         );
-//       case "text":
-//         if (node.marks?.some((mark) => mark.type === "bold")) {
-//           return <b>{node.text}</b>;
-//         }
-//         return node.text;
-//       case "image":
-//         return (
-//           <img
-//             src={node.attrs.src}
-//             alt={node.attrs.alt || ""}
-//             title={node.attrs.title || ""}
-//           />
-//         );
-//       default:
-//         return null;
-//     }
-//   };
-
-//   return (
-//     <div>
-//       {content.content.map((node, index) => (
-//         <div key={index}>{renderContent(node)}</div>
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default BlogPost;
 import React from 'react';
 
 import RichTextEditor from '@/components/ui/editor/RichTextEditor';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarTrigger
-} from '@/components/ui/menubar';
-import { Ellipsis } from 'lucide-react';
-import Link from 'next/link';
-import WithTooltip from './ui/WithTooltip';
-
 import PostDiscussionContainer from '@/containers/posts/overview/discussion/PostDiscussionContainer';
+import PostAvatarContainer from './cards/posts/utils/PostAvatarContainer';
 
 const BlogPost = ({ content, meta }) => {
   const renderContent = (node) => {
@@ -136,46 +86,49 @@ const BlogPost = ({ content, meta }) => {
         value={content}
         readOnly={true}
         children={
+          // <div className="flex items-center space-x-4 justify-between m-3 border-b pb-4">
+          //   <div className="flex items-start space-x-4">
+          //     <Link href={`/authors/profile/${author?._id}`} className="flex items-start space-x-4">
+          //       <Avatar className="cursor-pointer">
+          //         <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+          //         <AvatarFallback>CN</AvatarFallback>
+          //       </Avatar>
+          //       <div className="text-sm flex flex-col">
+          //         <div className="flex gap-2 items-center">
+          //           <p className="text-gray-900 leading-none">@{author?.name}</p>
+          //           <Button
+          //             variant={'link'}
+          //             // onClick={onFollow}
+          //             // className="ml-auto bg-blue-500 text-white text-xs px-3 py-1 rounded-full hover:bg-blue-600 transition-colors"
+          //             className="m-0 p-0 h-4 text-primary"
+          //           >
+          //             Follow
+          //           </Button>
+          //         </div>
+          //         <div className="flex gap-2 items-center text-gray-600">
+          //           <p className="text-gray-600 text-xs mt-1">{'17 nov 2024'}</p>•
+          //           <p className="text-gray-600 text-xs mt-1">{'10 min read'}</p>
+          //         </div>
+          //       </div>
+          //     </Link>
+          //   </div>
+          //   <WithTooltip description={'More Options'}>
+          //     <Menubar>
+          //       <MenubarMenu>
+          //         <MenubarTrigger className="border-none">
+          //           <Ellipsis />
+          //         </MenubarTrigger>
+          //         <MenubarContent>
+          //           <MenubarItem>Edit</MenubarItem>
+          //           <MenubarItem>Delete</MenubarItem>
+          //           <MenubarItem>Report</MenubarItem>
+          //         </MenubarContent>
+          //       </MenubarMenu>
+          //     </Menubar>
+          //   </WithTooltip>
+          // </div>
           <div className="flex items-center space-x-4 justify-between m-3 border-b pb-4">
-            <div className="flex items-start space-x-4">
-              <Link href={`/authors/profile/${author?._id}`} className="flex items-start space-x-4">
-                <Avatar className="cursor-pointer">
-                  <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <div className="text-sm flex flex-col">
-                  <div className="flex gap-2 items-center">
-                    <p className="text-gray-900 leading-none">@{author?.name}</p>
-                    <Button
-                      variant={'link'}
-                      // onClick={onFollow}
-                      // className="ml-auto bg-blue-500 text-white text-xs px-3 py-1 rounded-full hover:bg-blue-600 transition-colors"
-                      className="m-0 p-0 h-4 text-primary"
-                    >
-                      Follow
-                    </Button>
-                  </div>
-                  <div className="flex gap-2 items-center text-gray-600">
-                    <p className="text-gray-600 text-xs mt-1">{'17 nov 2024'}</p>•
-                    <p className="text-gray-600 text-xs mt-1">{'10 min read'}</p>
-                  </div>
-                </div>
-              </Link>
-            </div>
-            <WithTooltip description={'More Options'}>
-              <Menubar>
-                <MenubarMenu>
-                  <MenubarTrigger className="border-none">
-                    <Ellipsis />
-                  </MenubarTrigger>
-                  <MenubarContent>
-                    <MenubarItem>Edit</MenubarItem>
-                    <MenubarItem>Delete</MenubarItem>
-                    <MenubarItem>Report</MenubarItem>
-                  </MenubarContent>
-                </MenubarMenu>
-              </Menubar>
-            </WithTooltip>
+            <PostAvatarContainer author={author} post={meta} readingTime={10} />
           </div>
         }
         onChange={(cont) => console.log('changed', cont)}

@@ -1,15 +1,9 @@
 'use client';
-import { Button } from '@/components/ui/button';
-import React, { useEffect } from 'react';
-import ProfileTabContainer from './tabs/ProfileTabContainer';
-import { Settings } from 'lucide-react';
-import { IconSettings } from '@tabler/icons-react';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/services/store';
-import { useLazyGetProfileQuery } from '@/services/rtk/profileApi';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import { getAcronym } from '@/utils/utils';
-import FollowButtonLink from '@/components/cards/posts/utils/FollowButtonLink';
+import { IconSettings } from '@tabler/icons-react';
+import ProfileTabContainer from './tabs/ProfileTabContainer';
 
 const ProfileIndexContainer = ({ data }) => {
   // const [getProfile, { data }] = useLazyGetProfileQuery();
@@ -18,9 +12,6 @@ const ProfileIndexContainer = ({ data }) => {
   console.log('user', user);
   console.log('profiledata', data);
 
-  // useEffect(() => {
-  //   getProfile('');
-  // }, []);
   return (
     <div>
       <div className="relative flex flex-col w-full min-w-0 mb-6 break-words  bg-clip-border rounded-2xl border-stone-200 bg-light/30 draggable">

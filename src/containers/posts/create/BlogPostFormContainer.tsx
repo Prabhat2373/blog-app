@@ -25,11 +25,16 @@ import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Descendant } from 'slate';
+import classNames from 'classnames';
+import ScheduleBlogPostLink from '@/components/cards/posts/utils/ScheduleBlogPostLink';
 
 interface ICreateBlogPostFormContainer {
-  mode: BLOG_POST_MODES.CREATE | BLOG_POST_MODES.EDIT;
+  mode?: BLOG_POST_MODES.CREATE | BLOG_POST_MODES.EDIT;
+  post?: any;
 }
-const CreateBlogPostFormContainer = ({ mode }: ICreateBlogPostFormContainer) => {
+
+const CreateBlogPostFormContainer = ({ mode, post }: ICreateBlogPostFormContainer) => {
+  console.log('post', post);
   const params = useParams();
   const postId = params?.id;
   const [isOpen, setIsOpen] = useState(false);
@@ -39,6 +44,8 @@ const CreateBlogPostFormContainer = ({ mode }: ICreateBlogPostFormContainer) => 
 
   const [thumbnail, setThumbnail] = useState(null);
   const [content, setContent] = useState<Descendant[]>([]);
+
+  const postMeta = post;
 
   console.log('postData', postData);
   const router = useRouter();
@@ -82,12 +89,12 @@ const CreateBlogPostFormContainer = ({ mode }: ICreateBlogPostFormContainer) => 
   };
   const initialValues = useMemo(() => {
     return {
-      title: postData?.title ?? '',
+      title: postMeta?.title ?? '',
       content: null,
-      tags: postData?.tags ?? [],
+      tags: postMeta?.tags ?? [],
       mode: mode
     };
-  }, [postData]);
+  }, [postMeta]);
 
   const fileTypes = ['JPEG', 'PNG'];
 
@@ -101,103 +108,94 @@ const CreateBlogPostFormContainer = ({ mode }: ICreateBlogPostFormContainer) => 
     }
   }, [mode, postId]);
   useEffect(() => {
-    if (postData?.content) {
-      setContent(postData?.content);
+    if (postMeta?.content) {
+      setContent(postMeta?.content);
     }
-  }, [postData]);
+  }, [postMeta]);
   return (
     <>
-      <Modal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        title={'Schedule For Later'}
-        description={'test'}
-      >
-        <div>
-          <div>Schedule for later</div>
-          <div className="flex justify-end">
-            <Button>Shedule</Button>
-          </div>
-        </div>
-      </Modal>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validationSchema={createPostValidation}
-        enableReinitialize
-      >
-        {({ setFieldValue, values, errors }) => {
-          console.log('values', values);
-          console.log('errors', errors);
-          return (
-            <Form className="mx-32 my-20 flex flex-col gap-4">
-              <BlogPostDraftHandler content={content} thumbnail={thumbnail} />
-              <div>
-                <InputField
-                  label="Title"
-                  name="title"
-                  placeholder="Enter About Your Blog"
-                  required
-                />
-              </div>
-              <div>
-                <Label>
-                  Content <Asterisk />
-                </Label>
-                <RichTextEditor
-                  value={content}
-                  onChange={(value) => {
-                    setContent(value);
-                    // setFieldValue("content", value);
-                  }}
-                />
-                {errors?.content ? <InputError>{errors?.content}</InputError> : null}
-              </div>
-              <div>
-                <Label>Tags (optional)</Label>
-                <ReactSelect
-                  options={blogCategories}
-                  // value={/}
-                  isMulti
-                  onChange={(option) => {
-                    setFieldValue(
-                      'tags',
-                      option?.map((option) => option?.label)
-                    );
-                  }}
-                />
-              </div>
-              <div>
-                <Label>Thumbnail</Label>
-                <FileDropableInput
-                  multiple={true}
-                  onChange={(file) => {
-                    setFieldValue('thumbnail', file);
-                    handleChange(file);
-                  }}
-                  name="file"
-                  types={fileTypes}
-                />
-                {errors?.thumbnail ? <InputError>{errors?.thumbnail}</InputError> : null}
-              </div>
-              <div>
-                <img src={postData?.thumbnail} alt="thumbnail" width={200} height={200} />
-              </div>
-              <div className="flex gap-3 items-center justify-end">
-                <Button variant={'outline'}>
-                  <IconDeviceFloppy /> Save as Draft
-                </Button>
-                <Button variant={'outline'} type="button" onClick={() => setIsOpen(true)}>
-                  <IconClockBolt /> Schedule For Later
-                </Button>
-                <Button isLoading={isLoading || isUpdating}>
-                  <IconBolt /> {mode === BLOG_POST_MODES.EDIT ? 'Update' : 'Publish'}
-                </Button>
-              </div>
-            </Form>
-          );
-        }}
-      </Formik>
+      <div className="my-10">
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validationSchema={createPostValidation}
+          enableReinitialize
+        >
+          {({ setFieldValue, values, errors }) => {
+            console.log('values', values);
+            console.log('errors', errors);
+            return (
+              <Form className="mx-10  flex flex-col gap-4">
+                <BlogPostDraftHandler content={content} thumbnail={thumbnail} />
+                <div>
+                  <InputField
+                    label="Title"
+                    name="title"
+                    placeholder="Enter About Your Blog"
+                    required
+                  />
+                </div>
+                <div>
+                  <Label>
+                    Content <Asterisk />
+                  </Label>
+                  <RichTextEditor
+                    value={content}
+                    onChange={(value) => {
+                      setContent(value);
+                      // setFieldValue("content", value);
+                    }}
+                  />
+                  {errors?.content ? <InputError>{errors?.content}</InputError> : null}
+                </div>
+                <div>
+                  <Label>Tags (optional)</Label>
+                  <ReactSelect
+                    options={blogCategories}
+                    // value={/}
+                    isMulti
+                    onChange={(option) => {
+                      setFieldValue(
+                        'tags',
+                        option?.map((option) => option?.label)
+                      );
+                    }}
+                  />
+                </div>
+                <div>
+                  <Label>Thumbnail</Label>
+                  <FileDropableInput
+                    multiple={true}
+                    onChange={(file) => {
+                      setFieldValue('thumbnail', file);
+                      handleChange(file);
+                    }}
+                    name="file"
+                    types={fileTypes}
+                  />
+                  {errors?.thumbnail ? <InputError>{errors?.thumbnail}</InputError> : null}
+                </div>
+                <div
+                  className={classNames({
+                    hidden: !postData?.thumbnail
+                  })}
+                >
+                  <img src={postData?.thumbnail} alt="thumbnail" width={200} height={200} />
+                </div>
+                <div className="flex gap-3 items-center justify-end">
+                  <Button variant={'outline'}>
+                    <IconDeviceFloppy /> Save as Draft
+                  </Button>
+                  <ScheduleBlogPostLink />
+                  <Button isLoading={isLoading || isUpdating}>
+                    <IconBolt /> {mode === BLOG_POST_MODES.EDIT ? 'Update' : 'Publish'}
+                  </Button>
+                </div>
+              </Form>
+            );
+          }}
+        </Formik>
+      </div>
     </>
   );
 };

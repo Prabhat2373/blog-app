@@ -41,7 +41,7 @@ const FollowButtonLink = ({ author }) => {
     }
   }, [user]);
   return (
-    <RenderIf when={!isCurrentUserPost}>
+    <RenderIf when={!isCurrentUserPost && !!author}>
       <Button
         onClick={handleToggleFollow}
         variant={'link'}
