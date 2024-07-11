@@ -17,17 +17,11 @@ import FollowButtonLink from '@/components/cards/posts/utils/FollowButtonLink';
 const AuthorProfileContainer = ({ data }) => {
   const params = useParams();
   const id = params?.id;
-  // const [getProfile, { data }] = useLazyGetAuthorProfileQuery();
-  // const { user: authUser } = useSelector((state: RootState) => state.user);
+
   const user = data?.data;
   console.log('user', user);
   console.log('profiledata', data);
 
-  // useEffect(() => {
-  //   if (id) {
-  //     getProfile(id);
-  //   }
-  // }, [id]);
   return (
     <div>
       <div className="relative flex flex-col w-full min-w-0 mb-6 break-words  bg-clip-border rounded-2xl border-stone-200 bg-light/30 draggable">
@@ -138,7 +132,7 @@ const AuthorProfileContainer = ({ data }) => {
                     href="javascript:void(0)"
                     className="mr-3 mb-2 inline-flex items-center justify-center text-secondary-inverse rounded-full bg-neutral-100 hover:bg-neutral-200 transition-all duration-200 ease-in-out px-3 py-1 text-sm font-medium leading-normal"
                   >
-                    48 Articles
+                    {user?.articles?.length} Articles
                   </a>
                 </div>
               </div>

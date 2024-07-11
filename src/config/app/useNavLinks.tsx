@@ -3,6 +3,7 @@ import {
   AlertCircle,
   Archive,
   ArchiveX,
+  Book,
   File,
   Inbox,
   LucideIcon,
@@ -48,11 +49,11 @@ const useNavLinks = () => {
       href: '/authors'
     },
     {
-      title: 'Sent',
+      title: 'Collections',
       label: '',
-      icon: Send,
+      icon: Book,
       variant: 'ghost',
-      href: '/bookmarks'
+      href: '/collections'
     },
     {
       title: 'Junk',

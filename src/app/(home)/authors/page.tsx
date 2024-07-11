@@ -1,7 +1,8 @@
-import AuthorsListContainer from "@/containers/author/AuthorsListContainer";
-import React from "react";
+'use server';
+import AuthorsListContainer from '@/containers/author/AuthorsListContainer';
+import React from 'react';
 
-const AuthorsIndex = () => {
+const AuthorsIndex = async () => {
   return <AuthorsListContainer />;
 };
 

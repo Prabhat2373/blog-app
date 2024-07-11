@@ -26,6 +26,7 @@ export default function CoreAuthLayout({
       <body className={inter.className}>
         <StoreProvider>
           <AppProvider>
+            <ToastContainer />
             <AuthLayout>{children}</AuthLayout>
           </AppProvider>
         </StoreProvider>

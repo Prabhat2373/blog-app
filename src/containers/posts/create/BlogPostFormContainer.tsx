@@ -1,13 +1,13 @@
 'use client';
 import { blogCategories } from '@/__mock__/blogs.categories';
+import ScheduleBlogPostLink from '@/components/cards/posts/utils/ScheduleBlogPostLink';
 import Asterisk from '@/components/form/Asterisk';
 import FileDropableInput from '@/components/form/FileDropableInput';
 import InputError from '@/components/form/InputError';
 import InputField from '@/components/inputs/InputField';
-import Modal from '@/components/modals/Modal';
 import ReactSelect from '@/components/select/ReactSelect';
-import RichTextEditor from '@/components/ui/editor/RichTextEditor';
 import { Button } from '@/components/ui/button';
+import RichTextEditor from '@/components/ui/editor/RichTextEditor';
 import { Label } from '@/components/ui/label';
 import { BLOG_POST_MODES } from '@/config/app/AppConstants';
 import BlogPostDraftHandler from '@/helpers/form/BlogPostDraftHandler';
@@ -18,15 +18,13 @@ import {
 } from '@/services/rtk/postsApi';
 import { isSuccess } from '@/utils/utils';
 import { createPostValidation } from '@/validators/posts/posts.validator';
-import { IconBolt, IconClockBolt, IconDeviceFloppy } from '@tabler/icons-react';
+import { IconBolt, IconDeviceFloppy } from '@tabler/icons-react';
+import classNames from 'classnames';
 import { Form, Formik } from 'formik';
-import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Descendant } from 'slate';
-import classNames from 'classnames';
-import ScheduleBlogPostLink from '@/components/cards/posts/utils/ScheduleBlogPostLink';
 
 interface ICreateBlogPostFormContainer {
   mode?: BLOG_POST_MODES.CREATE | BLOG_POST_MODES.EDIT;
@@ -37,7 +35,7 @@ const CreateBlogPostFormContainer = ({ mode, post }: ICreateBlogPostFormContaine
   console.log('post', post);
   const params = useParams();
   const postId = params?.id;
-  const [isOpen, setIsOpen] = useState(false);
+
   const [getBlogPost, { data: postData }] = useLazyGetPostOverviewQuery();
   const [publishPost, { isLoading }] = useCreatePostMutation();
   const [updatePost, { isLoading: isUpdating }] = useUpdateBlogMutation();
