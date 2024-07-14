@@ -107,6 +107,11 @@ export const postsApi = createApi({
         url: `/blogs/posts/${postId}/${action}`,
         method: 'PUT'
       })
+    }),
+    getAccountPosts: builder.query({
+      query: () => ({
+        url: '/account/posts'
+      })
     })
   })
 });
@@ -130,5 +135,6 @@ export const {
   useUpdateBlogMutation,
   useLazyGetBlogTopicsQuery,
   useLazyGetFollowingPostsQuery,
-  useTogglePostSaveMutation
+  useTogglePostSaveMutation,
+  useLazyGetAccountPostsQuery
 } = postsApi;

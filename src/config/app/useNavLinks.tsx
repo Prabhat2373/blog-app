@@ -56,7 +56,7 @@ const useNavLinks = () => {
       href: '/collections'
     },
     {
-      title: 'Junk',
+      title: 'Posts',
       label: '23',
       icon: ArchiveX,
       variant: 'ghost',
