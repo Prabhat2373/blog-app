@@ -1,9 +1,11 @@
 'use server';
 import AuthorsListContainer from '@/containers/author/AuthorsListContainer';
-import React from 'react';
+import api from '@/services/ssr/api';
 
 const AuthorsIndex = async () => {
-  return <AuthorsListContainer />;
+  const res = await api.get('/authors/all');
+  const data = res?.data?.data;
+  return <AuthorsListContainer data={data} />;
 };
 
 export default AuthorsIndex;

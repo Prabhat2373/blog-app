@@ -2,7 +2,7 @@
 import { accounts } from '@/__mock__/mail/data';
 import { ResizeableLayout } from '@/components/layout/ResizeableLayout';
 import { cookies } from 'next/headers';
-import { useRouter } from 'next/navigation';
+import { useRouter, redirect } from 'next/navigation';
 
 const AppLayout = ({ children }) => {
   const token = cookies().get('token');
@@ -15,6 +15,10 @@ const AppLayout = ({ children }) => {
 
   console.log('token', token);
   console.log('logging');
+
+  if (!token) {
+    return redirect('/auth/login');
+  }
 
   return (
     <>
