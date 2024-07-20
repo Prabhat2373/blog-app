@@ -22,12 +22,8 @@ const AppLayout = ({ children }) => {
 
   return (
     <>
-      {/* <Header />
-      {children} */}
-      {/* <MainLayout>{children}</MainLayout> */}
       <ResizeableLayout
         accounts={accounts}
-        // mails={mails}
         defaultLayout={defaultLayout}
         defaultCollapsed={defaultCollapsed}
         navCollapsedSize={4}

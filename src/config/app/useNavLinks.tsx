@@ -60,7 +60,7 @@ const useNavLinks = () => {
       label: '23',
       icon: ArchiveX,
       variant: 'ghost',
-      href: '/junk'
+      href: '/posts'
     },
     {
       title: 'Saved',
