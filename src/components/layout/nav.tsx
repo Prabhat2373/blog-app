@@ -1,16 +1,12 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { LucideIcon } from "lucide-react";
+import Link from 'next/link';
+import { LucideIcon } from 'lucide-react';
 
-import { cn } from "@/lib/utils";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { buttonVariants } from "@/components/ui/button";
-import { useParams, usePathname } from "next/navigation";
+import { cn } from '@/lib/utils';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { buttonVariants } from '@/components/ui/button';
+import { useParams, usePathname } from 'next/navigation';
 // import { buttonVariants } from "@/registry/default/ui/button"
 // import {
 //   Tooltip,
@@ -24,7 +20,7 @@ interface NavProps {
     title: string;
     label?: string;
     icon: LucideIcon;
-    variant: "default" | "ghost";
+    variant: 'default' | 'ghost';
     href: string;
   }[];
 }
@@ -32,9 +28,15 @@ interface NavProps {
 export function Nav({ links, isCollapsed }: NavProps) {
   const params = useParams();
   const pathname = usePathname();
+  console.log('pathname', pathname);
 
-  const activeLink = links?.find((link) => link?.href?.includes(pathname));
-  console.log("activeLink", activeLink);
+  const activeLink = links?.find((link) => {
+    console.log('meta', link?.href, pathname, link?.href?.includes(pathname));
+    return pathname.startsWith(link?.href) && link.href?.length > 1
+      ? pathname.startsWith(link?.href)
+      : link?.href?.includes(pathname);
+  });
+  console.log('activeLink', activeLink);
 
   return (
     <div
@@ -50,13 +52,12 @@ export function Nav({ links, isCollapsed }: NavProps) {
                   href={link.href}
                   className={cn(
                     buttonVariants({
-                      variant:
-                        activeLink?.href === link.href ? "default" : "ghost",
-                      size: "icon",
+                      variant: activeLink?.href === link.href ? 'default' : 'ghost',
+                      size: 'icon'
                     }),
-                    "h-9 w-9",
+                    'h-9 w-9',
                     activeLink?.href === link.href &&
-                      "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
+                      'dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white'
                   )}
                 >
                   <link.icon className="h-4 w-4" />
@@ -65,11 +66,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
               </TooltipTrigger>
               <TooltipContent side="right" className="flex items-center gap-4">
                 {link.title}
-                {link.label && (
-                  <span className="ml-auto text-muted-foreground">
-                    {link.label}
-                  </span>
-                )}
+                {link.label && <span className="ml-auto text-muted-foreground">{link.label}</span>}
               </TooltipContent>
             </Tooltip>
           ) : (
@@ -78,12 +75,12 @@ export function Nav({ links, isCollapsed }: NavProps) {
               href={link.href}
               className={cn(
                 buttonVariants({
-                  variant: activeLink?.href === link.href ? "default" : "ghost",
-                  size: "sm",
+                  variant: activeLink?.href === link.href ? 'default' : 'ghost',
+                  size: 'sm'
                 }),
                 activeLink?.href !== link.href &&
-                  "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
-                "justify-start"
+                  'dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white',
+                'justify-start'
               )}
             >
               <link.icon className="mr-2 h-4 w-4" />
@@ -91,9 +88,8 @@ export function Nav({ links, isCollapsed }: NavProps) {
               {link.label && (
                 <span
                   className={cn(
-                    "ml-auto",
-                    link.variant === "default" &&
-                      "text-background dark:text-white"
+                    'ml-auto',
+                    link.variant === 'default' && 'text-background dark:text-white'
                   )}
                 >
                   {link.label}

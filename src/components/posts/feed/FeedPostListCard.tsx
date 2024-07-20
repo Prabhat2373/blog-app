@@ -1,11 +1,15 @@
 import BlogPostCard from '@/components/cards/posts/BlogPostCard';
 import EmptyState from '@/components/app/EmptyState';
 
-const FeedPostListCard = ({ posts }) => {
+interface IFeedPostListCard {
+  posts: any[];
+}
+
+const FeedPostListCard = ({ posts }: IFeedPostListCard) => {
   return (
     <div className="grid grid-cols-1 gap-4">
-      <EmptyState data={posts?.data} title="No Posts To Display!">
-        {posts?.data?.map((blog, index) => (
+      <EmptyState data={posts} title="No Posts To Display!">
+        {posts?.map((blog, index) => (
           <BlogPostCard
             key={blog._id}
             {...blog}

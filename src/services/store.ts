@@ -59,6 +59,7 @@ export const store = configureStore({
       .concat(postsApi.middleware)
       .concat(authorApi.middleware)
       .concat(profileApi.middleware)
+      .concat(rtkErrorHandler)
 });
 export const persistor = persistStore(store);
 export type AppStore = typeof store;

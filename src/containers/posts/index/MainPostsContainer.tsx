@@ -7,31 +7,31 @@ import { usePosts } from '@/hooks/posts/use-feed-posts';
 import { useState } from 'react';
 import HomeAsideContainer from './aside/HomeAsideContainer';
 
-const MainPostsContainer = () => {
+interface IMainPostsContainer {
+  blogs: any[];
+  followingPosts: any[];
+}
+
+const MainPostsContainer = ({ blogs = [], followingPosts = [] }: IMainPostsContainer) => {
   const [options, setOptions] = useState({});
-  const { data, followingPosts } = usePosts(options);
-  // const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/blogs`);
-  // const data = await res.json();
+  const { data } = usePosts(options);
+
   console.log('blogdata', data);
   return (
     <>
-      {/* test */}
-      {/* {data?.data?.map((item) => {
-        return <>{item?.title}</>;
-      })} */}
       <div className="grid grid-cols-10 gap-4">
         <ScrollArea className="h-screen col-span-10 md:col-span-7">
           <Container>
             <TabContentSection
               options={options}
               setOptions={setOptions}
-              data={data}
+              data={blogs}
               followingPosts={followingPosts}
             />
           </Container>
         </ScrollArea>
         <div className="hidden md:block md:col-span-3">
-          <HomeAsideContainer />
+          <HomeAsideContainer blogs={blogs} />
         </div>
       </div>
     </>
